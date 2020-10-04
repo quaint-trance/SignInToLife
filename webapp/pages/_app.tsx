@@ -7,7 +7,6 @@ function App({ Component, pageProps }: AppProps) {
   <>
     <UserProvider>
       <Component {...pageProps} />
-      <html lang="en"></html>
     </UserProvider>
   </>
   )

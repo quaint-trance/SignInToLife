@@ -1,0 +1,26 @@
+.container{
+    width: 100%;
+    height: 70px;
+    background-color: rgb(255, 255, 255);
+    background-color: var(--c-main1);
+    padding: 10px 10px;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.element{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: .8rem;
+    color: rgb(255, 255, 255);
+    font-weight: 300;
+}
+
+.element svg{
+    height: 30px;
+    width: 30px;
+}

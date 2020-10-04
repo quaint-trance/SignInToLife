@@ -1,0 +1,14 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: teal;
+    padding-bottom: 50px;
+}
+
+
+.mapContainer{
+    width: 100vw;
+    flex: 1;
+    background-color: tomato;
+}

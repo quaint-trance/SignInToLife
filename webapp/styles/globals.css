@@ -5,8 +5,8 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 
-    --c-light: #eaeaea;
-    --c-main1: #dfbf33;
+    --c-light: #eaeaea4d;
+    --c-main1:#dfae44;
 }
 
 a {

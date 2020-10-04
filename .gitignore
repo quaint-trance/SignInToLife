@@ -1,0 +1,13 @@
+node_modules/**/*
+app/node_modules/**/*
+server/node_modules/**/*
+npm-debug.*
+*.jks
+*.env
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+web-report/

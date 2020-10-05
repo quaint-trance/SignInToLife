@@ -1,0 +1,26 @@
+.searchbar{
+    position: fixed;
+    top: 20px;
+    z-index: 10;
+    width: 85%;
+    left: 50%;
+    transform: translate(-50%);
+    border-radius: 10px;
+    display: flex;
+    padding: 5px 10px;
+    background: rgb(255, 255, 255);
+    border: 1px solid rgba(0, 0, 0, 0.185);
+    align-items: center;
+}
+
+.searchbar input{
+    flex: 1;
+    font-size: 1.1rem;
+    border: none;
+    outline: none;
+}
+
+.searchbar svg{
+    height: 1.2rem;
+    color: rgba(0, 0, 0, 0.657);
+}

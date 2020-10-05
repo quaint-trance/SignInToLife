@@ -4,21 +4,17 @@ import Navbar from '../components/Navbar'
 
 export default function Home() {
   return (
-    <div className={styles.container}>
+    <div >
       <Head>
         <title>Home</title>
         <link rel="icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.json" />
         <meta lang="en"></meta>
       </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
+        <h1>
           home
         </h1>
-        <Navbar />
-      </main>
-
+        
     </div>
   )
 }

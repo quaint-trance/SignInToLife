@@ -4,6 +4,9 @@ import Navbar from '../components/Navbar'
 import GoogleMapReact from 'google-map-react'
 import useEvents from '../hooks/useEvents'
 import { Room } from '@material-ui/icons'
+import { useState } from 'react'
+import MapCard from '../components/MapCard'
+import MapSearchbar from '../components/MapSearchbar'
 
 const props = {
   center: {
@@ -13,8 +16,29 @@ const props = {
   zoom: 7
 }
 
-const LocationPin = ({ text }) => (
-  <div className={styles.pin}>
+function createMapOptions(maps) {
+  // next props are exposed at maps
+  // "Animation", "ControlPosition", "MapTypeControlStyle", "MapTypeId",
+  // "NavigationControlStyle", "ScaleControlStyle", "StrokePosition", "SymbolPath", "ZoomControlStyle",
+  // "DirectionsStatus", "DirectionsTravelMode", "DirectionsUnitSystem", "DistanceMatrixStatus",
+  // "DistanceMatrixElementStatus", "ElevationStatus", "GeocoderLocationType", "GeocoderStatus", "KmlLayerStatus",
+  // "MaxZoomStatus", "StreetViewStatus", "TransitMode", "TransitRoutePreference", "TravelMode", "UnitSystem"
+  console.log(maps.ControlPosition)
+  console.log(maps.ZoomControlStyle)
+  return {
+    zoomControlOptions: {
+      position: -1,
+      style: -1
+    },
+    mapTypeControlOptions: {
+      position: maps.ControlPosition.RIGHT_CENTER
+    },
+    mapTypeControl: true
+  };
+}
+
+const LocationPin = ({ text, click}) => (
+  <div className={styles.pin} onClick={click}>
     <Room />
   </div>
 )
@@ -22,6 +46,8 @@ const LocationPin = ({ text }) => (
 export default function Map() {
 
   const {isLoading, events} = useEvents();
+  const [currentPin, setCurrentPin] = useState();
+
   return (
     <div className={styles.container}>
       <Head>
@@ -32,22 +58,28 @@ export default function Map() {
       </Head>
 
       <main className={styles.main}>
+        <MapSearchbar />
         <div className={styles.mapContainer}  >
        <GoogleMapReact
           bootstrapURLKeys={{key: ''}}
           defaultCenter={props.center}
           defaultZoom={props.zoom}
+          options={createMapOptions}
+          
         >
-          {events && events.map(e=>
+          {events && events.map((e, i)=>
           <LocationPin
           lat={e.place.x}
           lng={e.place.y}
-          text={e.name}
+          click={()=>setCurrentPin(i)}
         />)}
          
         </GoogleMapReact>
         </div>
-        <Navbar />
+        { currentPin >= 0 
+          ? <MapCard event={events[currentPin]} close={()=>setCurrentPin()} />
+          : <Navbar />
+      }
       </main>
 
     </div>

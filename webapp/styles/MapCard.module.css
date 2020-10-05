@@ -1,0 +1,23 @@
+.card{
+    position: fixed;
+    height: 30vh;
+    background: white;
+    margin: 15px 10px;
+    width: calc(100% - 20px);
+    bottom: 0;
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.card .title{
+    width: 100%;
+    font-size: 1.4rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+.close{
+    position: absolute;
+    right: 5px;
+    top: 5px
+}

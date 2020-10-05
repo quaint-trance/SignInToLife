@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import authRoute from './web/routes/auth'
+import eventRoute from './web/routes/event'
 import activationRoute from './web/routes/activation'
 
 export default ()=>{
@@ -16,6 +17,7 @@ export default ()=>{
 
     app.use('/auth', authRoute);
     app.use('/activation', activationRoute);
+    app.use('/events', eventRoute);
 
 
     if(!process.env.DB_ACCESS) throw new Error('lack of env variables');

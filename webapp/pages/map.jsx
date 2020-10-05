@@ -2,17 +2,26 @@ import Head from 'next/head'
 import styles from '../styles/Map.module.css'
 import Navbar from '../components/Navbar'
 import GoogleMapReact from 'google-map-react'
+import useEvents from '../hooks/useEvents'
+import { Room } from '@material-ui/icons'
 
 const props = {
   center: {
-    lat: 59.95,
-    lng: 30.33
+    lat: 52.00,
+    lng: 20.00
   },
-  zoom: 11
+  zoom: 7
 }
 
+const LocationPin = ({ text }) => (
+  <div className={styles.pin}>
+    <Room />
+  </div>
+)
 
 export default function Map() {
+
+  const {isLoading, events} = useEvents();
   return (
     <div className={styles.container}>
       <Head>
@@ -25,10 +34,17 @@ export default function Map() {
       <main className={styles.main}>
         <div className={styles.mapContainer}  >
        <GoogleMapReact
-          bootstrapURLKeys={{key: 'AIzaSyCJeBzrM8qUxjsmQ6ZET_zqU9UVUMTUMD4'}}
+          bootstrapURLKeys={{key: ''}}
           defaultCenter={props.center}
           defaultZoom={props.zoom}
         >
+          {events && events.map(e=>
+          <LocationPin
+          lat={e.place.x}
+          lng={e.place.y}
+          text={e.name}
+        />)}
+         
         </GoogleMapReact>
         </div>
         <Navbar />

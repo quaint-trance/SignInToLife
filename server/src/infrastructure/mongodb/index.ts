@@ -1,5 +1,5 @@
 import User from './models/User'
-import Ride from './models/Ride'
+import Event from './models/Event'
 
 export default ()=>{
     return({
@@ -50,7 +50,7 @@ export default ()=>{
                 return result.nModified;
             },
         },
-        ride: {
+        event: {
             find: async (filter: { id?: string }) => {
                 
                 const newFilter:any = {
@@ -61,7 +61,7 @@ export default ()=>{
                     delete newFilter.id;
                 }
                 
-                const result = await Ride.findOne({ ...newFilter });
+                const result = await Event.findOne({ ...newFilter });
                 if( !result ) return false;
                 else return {
                     ...result, 
@@ -70,10 +70,12 @@ export default ()=>{
             },
             
             save: async (data: {line: number, busNumber: number, date:Date}) => {
-                const ride  = new Ride({
+                console.log(3123123);
+                const event  = new Event({
                     ...data
                 })
-                const result = await ride.save();
+                const result = await event.save();
+                console.log(result)
                 if( !result ) return false;
                 else return {
                     ...result, 
@@ -93,9 +95,14 @@ export default ()=>{
                 const updateObject:any = {};
                 updateObject[prop] = value;
                 
-                const result = await Ride.updateOne({...newFilter}, updateObject);
+                const result = await Event.updateOne({...newFilter}, updateObject);
                 return result.nModified;
             },
+            findMultiple: async ()=>{
+                const t =  await Event.find();
+                console.log(t);
+                return t;
+            }
         }
 
         })

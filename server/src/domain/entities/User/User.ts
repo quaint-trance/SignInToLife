@@ -11,6 +11,8 @@ interface hashT{
     compare: (password: string, hash: string) =>{},
 }
 
+export type UserT = ReturnType<typeof UserFactory>
+
 const UserFactory = (databaseI: databaseT, hashI: hashT) =>{
     
     return class User{
@@ -19,7 +21,6 @@ const UserFactory = (databaseI: databaseT, hashI: hashT) =>{
         public email: string;
         public active: boolean;
         public password: string;
-        public rides: string[];
 
         constructor(data:any){
             this.id = data.id;
@@ -27,12 +28,10 @@ const UserFactory = (databaseI: databaseT, hashI: hashT) =>{
             this.email = data.email;
             this.password = data.password;
             this.active = data.active;
-            this.rides = data.rides;
         }
         
         static async find(filter:{email?:string, id?:string}){
             const element = await databaseI.user.find( {...filter} );
-            console.log(element);
             if(!element) return undefined;
             return new User(element);
         }
@@ -61,13 +60,7 @@ const UserFactory = (databaseI: databaseT, hashI: hashT) =>{
 
 
         async isPasswordCorrect(password: string){
-            console.log("e", password, this.password)
             return await hashI.compare(password, this.password);
-        }
-
-        async linkRide(rideId: string){
-            await this.update( 'rides', [...(this.rides), rideId] );
-            return true;
         }
         
     }

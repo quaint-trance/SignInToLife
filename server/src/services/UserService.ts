@@ -1,15 +1,8 @@
 import jwt from 'jsonwebtoken'
-import UserFactory from '../domain/entities/User/User'
-import RideFactory from '../domain/entities/Ride/Ride'
-
-// @ts-ignore
-const UserClass = UserFactory();
-// @ts-ignore
-const RideClass = RideFactory();
+import { UserT } from '../domain/entities/User/User'
 
 interface entitiesT{
-    user: typeof UserClass;
-    ride: typeof RideClass
+    user: UserT;
 }
 
 export default class{
@@ -24,17 +17,16 @@ export default class{
 
     async login(email: string, password: string){
         const user = await this.entities.user.find({email});
-        console.log(email)
         if( !user ){
-            console.log('no such a user')
+            //console.log('no such a user')
             return false;
         } 
         if( !(await user.isPasswordCorrect(password))  ){
-            console.log('bad pass')
+            //console.log('bad pass')
             return false;
         }
         if( !user.active ) {
-            console.log('inactive account');
+            //console.log('inactive account');
             return false;
         }
         
@@ -69,18 +61,8 @@ export default class{
         const user =  await this.entities.user.find({id});
         if(!user) return false;
 
-        const rideObj = new RideClass({ id: "", line: 0, busNumber: 0, date: new Date() });
-        const rides:typeof rideObj[] = [];
-        
-        for(let r in (user.rides)){
-            const resolvedR = await this.entities.ride.find({id: (user.rides[r])});
-            if( !resolvedR ) continue;
-            rides.push(resolvedR);
-        }
-
         return {
             ...user,
-            rides: rides
         }
         
     }

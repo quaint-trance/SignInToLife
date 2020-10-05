@@ -9,7 +9,7 @@ const database = {
         password: "pass123",
         active: true
     }],
-    ride: []
+    event: []
 }
 
 const testFactory = TestFactory(database);

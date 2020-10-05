@@ -1,6 +1,6 @@
 import serverFactory from '../src/serverFactory';
 
-export default (database: {user: any[], ride: any[]})=>{
+export default (database: {user: any[], event: any[]})=>{
 
     const databaseI = {
         user:{
@@ -29,30 +29,33 @@ export default (database: {user: any[], ride: any[]})=>{
                 return true;
             },
         },
-        ride:{
+        event:{
             find: (filter: {id: string})=>{
-                return database.ride.find((element)=>{
+                return database.event.find((element)=>{
                     if( filter.id && element.id === filter.id ) return true;
                     return false;
                 })
             },
-            save: (object:{line: number, busNumber: number, date:Date})=>{
+            save: (object:{ date: Date,place:{x:string, y:string}, creator:string, name:string})=>{
                 const i =  "0"+Math.random()*13;
                 const obj = {
                     ...object,
                     id: i,
                 }
-                database.ride.push(obj);
+                database.event.push(obj);
                 return obj;
             },
             update: (filter: { id: string}, prop: string, value:any)=>{
                
-                const element = databaseI.ride.find(filter);
+                const element = databaseI.event.find(filter);
                 if(!element) return false;
                 // @ts-ignore
                 element[prop] = value;
                 return true;
             },
+            findMultiple: (filter:{id:string})=>{
+                return database.event;
+            }
         }
 }
 

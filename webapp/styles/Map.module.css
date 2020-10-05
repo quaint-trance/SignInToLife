@@ -12,3 +12,21 @@
     flex: 1;
     background-color: tomato;
 }
+
+
+
+.pin{
+  position: relative;
+}
+
+.pin svg{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translate(-50%, 0);
+  color: rgb(233, 1, 1);
+  height: 50px;
+  width: 50px;
+stroke: black;
+  
+}

@@ -1,12 +1,14 @@
 import Head from 'next/head'
-import styles from '../styles/Map.module.css'
-import Navbar from '../components/Navbar'
+import styles from '../../styles/Map.module.css'
+import Navbar from '../../components/Navbar'
 import GoogleMapReact from 'google-map-react'
-import useEvents from '../hooks/useEvents'
+import useEvents from '../../hooks/useEvents'
 import { Room } from '@material-ui/icons'
 import { useState } from 'react'
-import MapCard from '../components/MapCard'
-import MapSearchbar from '../components/MapSearchbar'
+import MapCard from '../../components/MapCard'
+import MapSearchbar from '../../components/MapSearchbar'
+import { Add } from '@material-ui/icons';
+import { useRouter } from 'next/router'
 
 const props = {
   center: {
@@ -17,14 +19,6 @@ const props = {
 }
 
 function createMapOptions(maps) {
-  // next props are exposed at maps
-  // "Animation", "ControlPosition", "MapTypeControlStyle", "MapTypeId",
-  // "NavigationControlStyle", "ScaleControlStyle", "StrokePosition", "SymbolPath", "ZoomControlStyle",
-  // "DirectionsStatus", "DirectionsTravelMode", "DirectionsUnitSystem", "DistanceMatrixStatus",
-  // "DistanceMatrixElementStatus", "ElevationStatus", "GeocoderLocationType", "GeocoderStatus", "KmlLayerStatus",
-  // "MaxZoomStatus", "StreetViewStatus", "TransitMode", "TransitRoutePreference", "TravelMode", "UnitSystem"
-  console.log(maps.ControlPosition)
-  console.log(maps.ZoomControlStyle)
   return {
     zoomControlOptions: {
       position: -1,
@@ -33,7 +27,8 @@ function createMapOptions(maps) {
     mapTypeControlOptions: {
       position: maps.ControlPosition.RIGHT_CENTER
     },
-    mapTypeControl: true
+    mapTypeControl: false,
+    fullScreenControl: false
   };
 }
 
@@ -47,6 +42,7 @@ export default function Map() {
 
   const {isLoading, events} = useEvents();
   const [currentPin, setCurrentPin] = useState();
+  const router = useRouter();
 
   return (
     <div className={styles.container}>
@@ -78,7 +74,7 @@ export default function Map() {
         </div>
         { currentPin >= 0 
           ? <MapCard event={events[currentPin]} close={()=>setCurrentPin()} />
-          : <Navbar />
+          : <><button className={styles.add} onClick={()=>router.push('/map/addEvent')}><Add /></button><Navbar /></>
       }
       </main>
 

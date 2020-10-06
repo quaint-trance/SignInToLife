@@ -29,8 +29,8 @@ export default class{
             //console.log('inactive account');
             return false;
         }
-        
-        const token = jwt.sign( {id: user.id}, "secret" );
+        if(!process.env.TOKEN_K) throw new Error('no varibles!');
+        const token = jwt.sign( {id: user.id}, process.env.TOKEN_K);
         return token;
     }
     

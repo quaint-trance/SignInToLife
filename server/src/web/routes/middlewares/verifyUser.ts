@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import express from 'express';
+import { verify } from 'crypto';
 
 const auth = (req: any, res: express.Response, next: any) =>{
 
@@ -9,8 +10,10 @@ const auth = (req: any, res: express.Response, next: any) =>{
         if(!process.env.TOKEN_K) throw new Error('no varibles!');
         const verified = <{id: string}>jwt.verify(token, process.env.TOKEN_K);
         req.user = verified.id;
+        console.log(verified)
         return next();
     }catch(error){
+        console.log(error)
         return res.status(403).send('Invalid Token');
     }
 }

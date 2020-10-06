@@ -26,5 +26,28 @@
   color: rgb(233, 1, 1);
   height: 50px;
   width: 50px;
-    stroke: black;
+  stroke: black;
+}
+
+.add{
+  position: fixed;
+  right: 10px;
+  bottom: 60px;
+  padding: 0;
+  margin: 0;
+  background: rgba(0, 0, 0, 0);
+  outline: none;
+  border: none;
+}
+
+.add svg{
+  margin: none;
+  height: 50px;
+  width: 50px;
+  color: white;
+  background-color: var(--c-main1);
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.157);
+  stroke: rgba(0, 0, 0, 0.109);
+  stroke-width: 1px;
 }

@@ -8,11 +8,9 @@
 
 .mapContainer{
     width: 100vw;
-    flex: 1;
+    height: 100vh;
     background-color: rgb(192, 192, 192);
 }
-
-
 
 .pin{
   position: relative;
@@ -50,4 +48,13 @@
   border: 1px solid rgba(0, 0, 0, 0.157);
   stroke: rgba(0, 0, 0, 0.109);
   stroke-width: 1px;
+}
+
+
+.center{
+  position: fixed;
+  top: 20%;
+  left: 20%;
+  font-weight: 600;
+  font-size: 4rem;
 }

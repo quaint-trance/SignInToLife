@@ -8,6 +8,7 @@ import { useState } from 'react'
 import MapCard from '../../components/MapCard'
 import MapSearchbar from '../../components/MapSearchbar'
 import { useRouter } from 'next/router'
+import { animated, useTransition } from 'react-spring'
 
 const props = {
   center: {
@@ -37,11 +38,22 @@ const LocationPin = ({ text, click}) => (
   </div>
 )
 
-export default function Map() {
 
+export default function Map() {
+  
+  
   const {isLoading, events} = useEvents();
   const [currentPin, setCurrentPin] = useState();
   const router = useRouter();
+  
+const transitions = useTransition(currentPin, currentPin, {
+  from: { opacity: 0 },
+  enter: { opacity: 1 },
+  leave: { opacity: 0 },
+  config:{
+    duration: 200
+  }  
+})
 
   return (
     <div className={styles.container}>
@@ -72,8 +84,23 @@ export default function Map() {
         </GoogleMapReact>
         </div>
         { currentPin >= 0 
-          ? <MapCard event={events[currentPin]} close={()=>setCurrentPin()} />
-          : <><button className={styles.add} onClick={()=>router.push('/map/addEvent')}><Add /></button><Navbar /></>
+          ? <>
+          {transitions.map(({ item, key, props }) => 
+        <animated.div key={key} style={props}>
+          <MapCard event={events[currentPin]} close={()=>setCurrentPin()} />
+          😄</animated.div>
+          )}
+            
+
+            {false && <MapCard event={events[currentPin]} close={()=>setCurrentPin()} />}
+            </>
+          : <>
+          {transitions.map(({ item, key, props }) => 
+            !item && <animated.div style={props}>
+            <button className={styles.add} onClick={()=>router.push('/map/addEvent')}><Add /></button>
+            <Navbar />
+            😄</animated.div>
+          )}</>
       }
       </main>
 

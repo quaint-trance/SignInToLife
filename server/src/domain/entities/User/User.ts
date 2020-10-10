@@ -1,7 +1,7 @@
 interface databaseT{
     user:{
         find: (filter: {email?: string, id?: string}) => any,
-        save: (newUser: {email: string, name: string, password: string}) => any,   
+        save: (newUser: {email: string, name: string, password: string, level: number}) => any,   
         update: (filter: {email?: string, id?: string, name?: string}, prop: string, value: any) => any,   
     }
 };
@@ -21,6 +21,8 @@ const UserFactory = (databaseI: databaseT, hashI: hashT) =>{
         public email: string;
         public active: boolean;
         public password: string;
+        public level: number;
+        public leagueId: string | undefined;
 
         constructor(data:any){
             this.id = data.id;
@@ -28,6 +30,8 @@ const UserFactory = (databaseI: databaseT, hashI: hashT) =>{
             this.email = data.email;
             this.password = data.password;
             this.active = data.active;
+            this.level = data.level;
+            this.leagueId = data.leagueId;
         }
         
         static async find(filter:{email?:string, id?:string}){
@@ -46,6 +50,7 @@ const UserFactory = (databaseI: databaseT, hashI: hashT) =>{
                 email,
                 name,
                 password: hashedPassword,
+                level: 0
             });
             if( !result ) return false;
             return new User(result);

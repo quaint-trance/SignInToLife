@@ -17,7 +17,6 @@ router.post('/addEvent', verifyUser, async (req:reqType, res: any)=>{
     //const user = await mainF.entities.user.find({id: req.user});
     //if( !user ) return res.status(400).send();
     const result = await mainF.eventService.createEvent(req.body.date, req.body.place, req.user, req.body.name);
-    console.log(result)
     if( result ) res.status(200).send();
     else res.status(400).send();
 });

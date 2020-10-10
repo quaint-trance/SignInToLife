@@ -1,5 +1,6 @@
 import User from './models/User'
 import Event from './models/Event'
+import League from './models/League'
 
 export default ()=>{
     return({
@@ -100,6 +101,59 @@ export default ()=>{
             },
             findMultiple: async ()=>{
                 const t =  await Event.find();
+                console.log(t);
+                return t;
+            }
+        },
+        league: {
+            find: async (filter:{id?: string, level?: number}) => {
+                
+                const newFilter:any = {
+                    ...filter
+                };
+                if(filter.id){
+                    newFilter._id = newFilter.id;
+                    delete newFilter.id;
+                }
+                
+                const result = await League.findOne({ ...newFilter });
+                if( !result ) return false;
+                else return {
+                    ...result, 
+                    id: result._id
+                };
+            },
+            
+            save: async (data: {level: number, participators: any[]}) => {
+                const league  = new League({
+                    ...data
+                })
+                const result = await league.save();
+                console.log(result)
+                if( !result ) return false;
+                else return {
+                    ...result, 
+                    id: result._id
+                };
+            },
+            
+            update: async (filter: { id: string }, prop: string, value: any) => {
+                const newFilter:any = {
+                    ...filter
+                };
+                if(filter.id){
+                    newFilter._id = newFilter.id;
+                    delete newFilter.id;
+                }
+                
+                const updateObject:any = {};
+                updateObject[prop] = value;
+                
+                const result = await League.updateOne({...newFilter}, updateObject);
+                return result.nModified;
+            },
+            findMultiple: async ()=>{
+                const t =  await League.find();
                 console.log(t);
                 return t;
             }

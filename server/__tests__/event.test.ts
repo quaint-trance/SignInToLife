@@ -13,7 +13,8 @@ const database = {
         },
         name: "Hehe dobre dobre",
         id: "3123r12"
-    }]
+    }],
+    league: []
 }
 
 const testFactory = TestFactory(database);

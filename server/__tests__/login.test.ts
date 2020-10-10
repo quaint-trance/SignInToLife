@@ -12,11 +12,12 @@ const database = {
         password: "pass123e",
         active: true
     }],
-    event: []
+    event: [],
+    league: []
 }
 
 const testFactory = TestFactory(database);
-
+process.env.TOKEN_K = 'e'
 describe('Login', ()=>{
     
     it('correctly', async (done)=>{

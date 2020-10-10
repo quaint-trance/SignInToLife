@@ -9,7 +9,8 @@ const database = {
         password: "pass123",
         active: true
     }],
-    event: []
+    event: [],
+    league: []
 }
 
 const testFactory = TestFactory(database);

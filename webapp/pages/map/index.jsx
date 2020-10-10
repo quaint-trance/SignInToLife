@@ -3,11 +3,10 @@ import styles from '../../styles/Map.module.css'
 import Navbar from '../../components/Navbar'
 import GoogleMapReact from 'google-map-react'
 import useEvents from '../../hooks/useEvents'
-import { Room } from '@material-ui/icons'
+import { Room, Add } from '@material-ui/icons'
 import { useState } from 'react'
 import MapCard from '../../components/MapCard'
 import MapSearchbar from '../../components/MapSearchbar'
-import { Add } from '@material-ui/icons';
 import { useRouter } from 'next/router'
 
 const props = {
@@ -28,7 +27,7 @@ function createMapOptions(maps) {
       position: maps.ControlPosition.RIGHT_CENTER
     },
     mapTypeControl: false,
-    fullScreenControl: false
+    fullscreenControl: false
   };
 }
 

@@ -1,4 +1,47 @@
+.main{
+    padding: 10px 15px;
+    height: 100%;
+}
+
 .form{
     display: flex;
     flex-direction: column;
+    height: 100%;
+}
+
+.form input{
+    font-size: 1.2rem;
+    padding: 5px;
+    margin-bottom: 15px;
+}
+
+.form button{
+    outline: none;
+    background-color: rgb(255, 255, 255);
+    
+    border: 3px solid var(--c-main1);
+    font-size: 1.3rem;
+    font-weight: 500;
+    padding: 10px 10px;
+    margin-top: auto;
+    position: absolute;
+    width: calc(100% - 30px);
+    bottom: 15px;
+}
+
+
+.header{
+    background-color: var(--c-main1);
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.945);
+}
+
+.header svg{
+    font-size: 1.5rem;
+}
+
+.header img{
+    margin-left: 15px;
 }

@@ -6,6 +6,7 @@ import { UserContext } from '../../components/UserContext'
 import styles from '../../styles/AddEvent.module.css'
 import { useRouter } from 'next/router'
 import useLoginAccess from '../../hooks/useLoginAccess'
+import { ArrowBack } from '@material-ui/icons';
 
 export default function Login() {
   
@@ -26,11 +27,14 @@ export default function Login() {
         <title>Sign in to Paseo</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <header className={styles.header}>
+        <ArrowBack onClick={()=>router.back()}></ArrowBack>
+          <img src="/images/logo.png" alt="logo"/>
+      </header>
 
       <main className={styles.main}>
-          <img src="/images/logo.png" alt="logo"/>
         <h1 className={styles.title}>
-          Sign in to Your account
+          Create new event
         </h1>
         <form className={styles.form} onSubmit={handleFormSubmit} >
             
@@ -43,7 +47,7 @@ export default function Login() {
             <label htmlFor="y">y</label>
             <input type="text" name="y" id="y"/>
 
-            <button>Sign in</button>
+            <button>create event</button>
 
             <div>{ isLoading && "Loading" }{ isSuccess && "Success" }{ isError && "Error" }</div>
         </form>

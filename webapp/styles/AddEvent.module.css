@@ -45,3 +45,76 @@
 .header img{
     margin-left: 15px;
 }
+
+.loading{
+    height: 60px;
+    width: 60px;
+    margin: auto;
+    border-radius: 50%;
+    background: linear-gradient(90deg, rgba(224,43,27,1) 0%, rgba(241,112,13,1) 17%, rgba(230,201,9,1) 35%, rgba(91,187,25,1) 48%, rgba(45,169,205,1) 66%, rgba(81,104,213,1) 82%, rgba(166,65,215,1) 95%);
+    position: relative;
+    animation: anim 1s infinite linear;
+}
+
+@keyframes anim{
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(365deg);
+    }
+}
+
+.loading::after{
+    content: '';
+    background-color: rgb(255, 255, 255);
+    height: 45px;
+    width: 45px;
+    position: absolute;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.done{
+    position: relative;
+}
+
+.done::after{
+    animation: e .8s linear;
+    content: '';
+    width: 25px;
+    height: 25px;
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    transform: rotate(45deg);
+}
+
+@keyframes e{
+    0%{
+        bottom: 15px;
+        left: 8px;
+
+    }
+    100%{
+
+        bottom: 50px;
+        left: 50px;
+    }
+}    
+
+
+.done svg{
+    height: 50px;
+    width: 50px;
+    margin: auto;
+    color: green;
+}
+
+.error svg{
+    color:red;
+    height: 50px;
+    width: 50px;
+    margin: auto;
+}

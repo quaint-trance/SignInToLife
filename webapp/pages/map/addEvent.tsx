@@ -6,7 +6,7 @@ import { UserContext } from '../../components/UserContext'
 import styles from '../../styles/AddEvent.module.css'
 import { useRouter } from 'next/router'
 import useLoginAccess from '../../hooks/useLoginAccess'
-import { ArrowBack } from '@material-ui/icons';
+import { ArrowBack, Check, Close } from '@material-ui/icons';
 
 export default function Login() {
   
@@ -49,7 +49,13 @@ export default function Login() {
 
             <button>create event</button>
 
-            <div>{ isLoading && "Loading" }{ isSuccess && "Success" }{ isError && "Error" }</div>
+            <div> 
+              {isSuccess && <div className={styles.done}><Check/></div>}
+              {isError && <div className={styles.error}><Close/></div>}
+              {isLoading && <div className={styles.loading}></div>}
+               
+              
+            </div>
         </form>
       </main>
     </div>

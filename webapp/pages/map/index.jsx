@@ -49,9 +49,9 @@ export default function Map() {
 const transitions = useTransition(currentPin, currentPin, {
   from: { opacity: 0 },
   enter: { opacity: 1 },
-  leave: { opacity: 0 },
+  leave: { opacity: 1 },
   config:{
-    duration: 200
+    duration: 150
   }  
 })
 

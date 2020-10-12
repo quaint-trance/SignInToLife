@@ -4,6 +4,7 @@ import Navbar from '../../components/Navbar'
 import GoogleMapReact from 'google-map-react'
 import useEvents from '../../hooks/useEvents'
 import { Room, Add } from '@material-ui/icons'
+import { MdAdd } from 'react-icons/md'
 import { useState } from 'react'
 import MapCard from '../../components/MapCard'
 import MapSearchbar from '../../components/MapSearchbar'
@@ -97,7 +98,7 @@ const transitions = useTransition(currentPin, currentPin, {
           : <>
           {transitions.map(({ item, key, props }) => 
             !item && <animated.div style={props}>
-            <button className={styles.add} onClick={()=>router.push('/map/addEvent')}><Add /></button>
+            <button className={styles.add} onClick={()=>router.push('/map/addEvent')}><MdAdd /></button>
             <Navbar />
             😄</animated.div>
           )}</>

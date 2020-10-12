@@ -1,10 +1,12 @@
 import Head from 'next/head'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Link from 'next/link'
 import useRegister from '../hooks/useRegister';
 import styles from '../styles/Register.module.css'
 import { useRouter } from 'next/router'
 import { UserContext } from '../components/UserContext'
+import InfoBox from '../components/InfoBox'
+import { useTransition, animated } from 'react-spring'
 
 export default function Register() {
   
@@ -26,6 +28,25 @@ export default function Register() {
         router.push('/home');
       }
     }, [token, loading])
+
+    useEffect(()=>{
+        if(isSuccess)setDisplayInfo(true);
+    }, [isSuccess])
+
+
+    const [displayInfo, setDisplayInfo] = useState(false);
+
+    const transition = useTransition(displayInfo, null, {
+      from:{
+        opacity: 0,
+      },
+      enter:{
+        opacity: 1,
+      },
+      leave:{
+        opacity: 0,
+      }
+    })
 
     return (
     <div className={styles.container}>
@@ -51,6 +72,19 @@ export default function Register() {
             <Link href='/login'>Have an account?</Link>
         </form>
       </main>
+
+
+      {transition.map(({ item, key, props }) =>
+        item && 
+        <animated.div style={props}>
+          <InfoBox 
+            title={"Potwierdź email"} 
+            text={"Rejestracja przebiegła pomyślnie. Aby aktywować konto kliknij w link aktywacyjny wysłany w wiadomości na twoją skrzynkę. Koniecznie może być sprawdzenie folderu 'spam' "}
+            button={"OK"}
+            onClick={()=>setDisplayInfo(false)}  
+          />
+        </animated.div>
+      )}
     </div>
   )
 }

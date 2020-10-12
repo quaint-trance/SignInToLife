@@ -1,0 +1,61 @@
+.container {
+    min-height: calc(100vh - 50px);
+    display: flex;
+    flex-direction: column;
+  }
+  
+.header{
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.header .progressBar{
+    background-color: rgb(228, 228, 228);
+    border-radius: 50px;
+    height: 50%;
+    flex: 1;
+    margin: 0 10px;
+}
+.header .progressBar > div{
+    background-color: rgb(120, 200, 45);
+    border-radius: 50px;
+    height: 100%;
+    min-width: 10%;
+}
+
+.main{
+    font-size: 1rem;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.main .name{
+    margin: 40px 0;
+    font-size: 2rem;
+    font-weight: 500;
+    width: 100%;
+    text-align: center;
+    flex: 3;
+}
+
+.main .answers{
+    display: flex;
+    flex-direction: column;
+    flex: 4;
+    align-items: center;
+    justify-content: space-evenly; 
+}
+
+.answers > div{
+    font-size: 1.3rem;
+    outline: none;
+    background-color: rgb(255, 255, 255);  
+    border: 2px solid var(--c-main1);
+    font-size: 1.3rem;
+    font-weight: 500;
+    width: 90vw;
+    padding: 10px 10px;
+}

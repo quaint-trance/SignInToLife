@@ -1,7 +1,6 @@
-import Head from 'next/head'
 import styles from '../styles/Navbar.module.css'
 import Link from 'next/link'
-import { Home, Map, Settings, TrendingUp } from '@material-ui/icons'
+import { MdHome, MdExplore, MdTrendingUp, MdSettings } from 'react-icons/md'
 import { useRouter } from 'next/router'
 
 export default function Navbar() {
@@ -12,22 +11,22 @@ export default function Navbar() {
     <nav className={styles.container}>
         <Link href='/home' >
           <div className={`${styles.element} ${router.pathname==='/home' && styles.active}`}>
-              <Home /> Home
+              <MdHome /> Home
             </div>
         </Link>
         <Link href='/map' >
           <div className={`${styles.element} ${router.pathname==='/map' && styles.active}`}>
-            <Map /> Map
+            <MdExplore /> Map
           </div>
         </Link>
         <Link href='/ranking' >
           <div className={`${styles.element} ${router.pathname==='/ranking' && styles.active}`}>
-            <TrendingUp/>Ranking
+            <MdTrendingUp/>Ranking
           </div>
         </Link>
         <Link href='/settings' >
           <div className={`${styles.element} ${router.pathname==='/settings' && styles.active}`}>
-            <Settings/> Settings
+            <MdSettings/> Settings
           </div>
         </Link>
     </nav>

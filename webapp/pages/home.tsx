@@ -3,8 +3,12 @@ import styles from '../styles/Home.module.css'
 import Navbar from '../components/Navbar'
 import Link from 'next/link'
 import useLoginAccess from '../hooks/useLoginAccess'
+import Chart from '../components/Chart'
+import { useContext } from 'react'
+import { UserContext } from '../components/UserContext'
 
 export default function Home() {
+
 
   return (
     <div className={styles.container}>
@@ -22,7 +26,7 @@ export default function Home() {
       
       <div className={styles.chartBox}>
         <div className={styles.chart}>
-
+          <Chart token={'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmODRiNzJiN2JlZTcxMzA1ZTU3MDhiNSIsImlhdCI6MTYwMjUzMzI1OH0.5RV-Th--V4TbKAd7NU7zKYmjTGFgjwv8ckR0rjPF0ks'} className={''}/>
         </div>
         <div className={styles.resum}>
             <div>

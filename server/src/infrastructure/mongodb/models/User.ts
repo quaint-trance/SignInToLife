@@ -1,3 +1,4 @@
+import { string } from 'joi';
 import mongoose from 'mongoose';
 
 export interface IUser extends mongoose.Document{
@@ -5,7 +6,12 @@ export interface IUser extends mongoose.Document{
     email: string,
     password: string,
     active: string,
-    rides: string,
+    level: number;
+    leagueId: string | undefined;
+    gainedScoreHistory:{
+        score: number,
+        date: Date;
+    }[];
 }
 
 const userSchema = new mongoose.Schema({
@@ -25,9 +31,13 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    rides: [{
-        type: String,
+    leagueId: String,
+    level: Number,
+    gainedScoreHistory:[{
+        score: Number,
+        date: Date
     }]
+
 });
 
 export default mongoose.model<IUser>('User', userSchema);

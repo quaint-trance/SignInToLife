@@ -23,6 +23,10 @@ const UserFactory = (databaseI: databaseT, hashI: hashT) =>{
         public password: string;
         public level: number;
         public leagueId: string | undefined;
+        gainedScoreHistory:{
+            score: number,
+            date: string | Date;
+        }[]
 
         constructor(data:any){
             this.id = data.id;
@@ -32,6 +36,7 @@ const UserFactory = (databaseI: databaseT, hashI: hashT) =>{
             this.active = data.active;
             this.level = data.level;
             this.leagueId = data.leagueId;
+            this.gainedScoreHistory = data.gainedScoreHistory;
         }
         
         static async find(filter:{email?:string, id?:string}){
@@ -66,6 +71,41 @@ const UserFactory = (databaseI: databaseT, hashI: hashT) =>{
 
         async isPasswordCorrect(password: string){
             return await hashI.compare(password, this.password);
+        }
+
+        getWeekScoreHistory(){
+            const now = new Date();
+            /*
+            const s = this.gainedScoreHistory.filter(element => {
+                console.log(element.date.getDate())
+                return element.date.getTime() 
+                        > now.getTime() 
+                            - now.getHours()*1000*60*60
+                            - now.getMinutes()*1000*60
+                            - now.getSeconds()*1000
+                            - now.getMilliseconds()
+                            - 1000*60*60*24*7 
+            });
+            const s2:any[] = [];
+            for(let i = 0; i < 7; i++){
+                const f = s.find(el=> (new Date())el.date.getDate() )
+            }*/
+            const t:any[] = [];
+            this.gainedScoreHistory.forEach(element=>{
+                element.date = new Date(element.date);
+                const daysAgo = Math.floor(( now.getTime() - element.date.getTime()  )/( 1000*60*60*24 ));
+                if(6-daysAgo < 0) return;
+                t[ 6-daysAgo ] = element;
+            })
+
+            for(let i = 0; i < 7; i++){
+                if( !t[i] ) t[i] = {
+                    score: 0,
+                    date: new Date()
+                };
+            }
+
+            return t;
         }
         
     }

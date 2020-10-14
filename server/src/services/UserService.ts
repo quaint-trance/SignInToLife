@@ -67,4 +67,9 @@ export default class{
         
     }
 
+    async getScore(id: string){
+        const user =  await this.entities.user.find({id});
+        return await user?.getWeekScoreHistory();
+    }
+
 }

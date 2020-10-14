@@ -1,5 +1,6 @@
 import serverFactory from '../src/serverFactory';
 
+
 export default (database: {user: any[], event: any[], league: any[]})=>{
 
     const databaseI = {

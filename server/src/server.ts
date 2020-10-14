@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import authRoute from './web/routes/auth'
 import eventRoute from './web/routes/event'
 import activationRoute from './web/routes/activation'
+import scoreRoute from './web/routes/score'
 
 export default ()=>{
 
@@ -18,6 +19,7 @@ export default ()=>{
     app.use('/auth', authRoute);
     app.use('/activation', activationRoute);
     app.use('/events', eventRoute);
+    app.use('/score', scoreRoute);
 
 
     if(!process.env.DB_ACCESS) throw new Error('lack of env variables');

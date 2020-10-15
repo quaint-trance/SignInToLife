@@ -69,7 +69,7 @@ const transitions = useTransition(currentPin, currentPin, {
         <MapSearchbar />
         <div className={styles.mapContainer}  >
        <GoogleMapReact
-          bootstrapURLKeys={{key: ''}}
+          bootstrapURLKeys={{key: process.env.GMapsKey}}
           defaultCenter={props.center}
           defaultZoom={props.zoom}
           options={createMapOptions}
@@ -77,8 +77,8 @@ const transitions = useTransition(currentPin, currentPin, {
         >
           {events && events.map((e, i)=>
           <LocationPin
-          lat={e.place.x}
-          lng={e.place.y}
+          lat={e?.place?.x}
+          lng={e?.place?.y}
           click={()=>setCurrentPin(i)}
         />)}
          

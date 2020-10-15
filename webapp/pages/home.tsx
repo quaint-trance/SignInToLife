@@ -5,15 +5,13 @@ import Link from 'next/link'
 import useLoginAccess from '../hooks/useLoginAccess'
 import Chart from '../components/Chart'
 import { useContext } from 'react'
-import { UserContext } from '../components/UserContext'
 
 export default function Home() {
-
 
   return (
     <div className={styles.container}>
     <Head>
-      <title>Map</title>
+      <title>Home</title>
       <link rel="icon" href="/favicon.ico" />
       <link rel="manifest" href="/manifest.json" />
       <meta lang="en"></meta>
@@ -23,10 +21,9 @@ export default function Home() {
         <img src="" alt="logo"/>
         <span>App name</span>
       </div>
-      
       <div className={styles.chartBox}>
         <div className={styles.chart}>
-          <Chart token={'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmODRiNzJiN2JlZTcxMzA1ZTU3MDhiNSIsImlhdCI6MTYwMjUzMzI1OH0.5RV-Th--V4TbKAd7NU7zKYmjTGFgjwv8ckR0rjPF0ks'} className={''}/>
+          <Chart className={''}/>
         </div>
         <div className={styles.resum}>
             <div>

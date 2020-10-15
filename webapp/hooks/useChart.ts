@@ -2,9 +2,7 @@ import ENDPOINT from '../ENDPOINT';
 import { useQuery } from 'react-query'
 import { useEffect } from 'react';
 
-const useChart = (token: string) =>{
-
-
+const useChart = (token: string, wait: boolean) =>{
     
     const {isLoading, error, data} = useQuery('events', ()=>
     fetch(ENDPOINT+'/score/getScore', {
@@ -17,14 +15,9 @@ const useChart = (token: string) =>{
         },
     }).then(res=>
         res.json()
-        ).then(e=>{
-            //console.log(e);
-            return e;
-        }),{
-            staleTime: 1000
-        }
-        );
-        
+        ),{
+            enabled: !wait,
+    });
         
     useEffect(() => {
         console.log(data);   
@@ -34,7 +27,10 @@ const useChart = (token: string) =>{
         isLoading,
         data:{
             labels: ["1", "2", "3", "4", "5", "6", "7"],
-            datasets: data ? data : [],
+            datasets: [{
+                label: "e",
+                data: data?.map(el=>el.score)
+            }],
         }
     };
 }

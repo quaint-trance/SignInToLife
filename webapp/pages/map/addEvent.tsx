@@ -1,16 +1,15 @@
 import Head from 'next/head'
-import Link from 'next/link'
 import useAddEvent from '../../hooks/useAddEvent'
 import { useContext, useEffect } from 'react'
 import { UserContext } from '../../components/UserContext'
 import styles from '../../styles/AddEvent.module.css'
 import { useRouter } from 'next/router'
 import useLoginAccess from '../../hooks/useLoginAccess'
-import { ArrowBack, Check, Close } from '@material-ui/icons';
+import { ArrowBack, Check, Close } from '@material-ui/icons'
 
 export default function Login() {
   
-    const { token } = useContext( UserContext )
+    const { token } = useContext( UserContext );
     const { add, isLoading, isError, isSuccess } = useAddEvent(token);
     useLoginAccess();
 
@@ -24,7 +23,7 @@ export default function Login() {
     return (
     <div className={styles.container}>
       <Head>
-        <title>Sign in to Paseo</title>
+        <title>Add Event</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <header className={styles.header}>

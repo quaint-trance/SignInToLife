@@ -1,13 +1,15 @@
 import { useContext, useEffect } from 'react'
 import { Line, defaults } from 'react-chartjs-2'
 import useChart from '../hooks/useChart';
+import { UserContext } from '../components/UserContext'
 
-export default function Chart({className, token}) {
+export default function Chart({className}) {
 
-  const { data, isLoading } = useChart(token);
+  const { token, loading } = useContext( UserContext );
+  const { data, isLoading } = useChart(token, loading);
 
-  const getChartData = () => {
-      let e = data.datasets.map(set=>{
+  const getChartData = canvas => {
+      let newDatasets =  data.datasets.map(set=>{
         return {
           ...set,
           backgroundColor: "rgba(0, 0, 0, 0)",
@@ -16,8 +18,10 @@ export default function Chart({className, token}) {
           borderWidth: 2,
         }
       })
-      ///console.log(e);
-      return e;
+      return {
+        ...data,
+        datasets: newDatasets
+      };
   }
 
   return (
@@ -34,5 +38,4 @@ export default function Chart({className, token}) {
       />
     </div>
   )
-
 }

@@ -75,21 +75,6 @@ const UserFactory = (databaseI: databaseT, hashI: hashT) =>{
 
         getWeekScoreHistory(){
             const now = new Date();
-            /*
-            const s = this.gainedScoreHistory.filter(element => {
-                console.log(element.date.getDate())
-                return element.date.getTime() 
-                        > now.getTime() 
-                            - now.getHours()*1000*60*60
-                            - now.getMinutes()*1000*60
-                            - now.getSeconds()*1000
-                            - now.getMilliseconds()
-                            - 1000*60*60*24*7 
-            });
-            const s2:any[] = [];
-            for(let i = 0; i < 7; i++){
-                const f = s.find(el=> (new Date())el.date.getDate() )
-            }*/
             const t:any[] = [];
             this.gainedScoreHistory.forEach(element=>{
                 element.date = new Date(element.date);
@@ -106,6 +91,11 @@ const UserFactory = (databaseI: databaseT, hashI: hashT) =>{
             }
 
             return t;
+        }
+
+        async setLeaugeId(id: string){
+            this.leagueId = id;
+            return await this.update('leagueId', id);
         }
         
     }

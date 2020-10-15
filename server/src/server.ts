@@ -5,6 +5,7 @@ import authRoute from './web/routes/auth'
 import eventRoute from './web/routes/event'
 import activationRoute from './web/routes/activation'
 import scoreRoute from './web/routes/score'
+import leagueRoute from './web/routes/league'
 
 export default ()=>{
 
@@ -20,6 +21,7 @@ export default ()=>{
     app.use('/activation', activationRoute);
     app.use('/events', eventRoute);
     app.use('/score', scoreRoute);
+    app.use('/league', leagueRoute);
 
 
     if(!process.env.DB_ACCESS) throw new Error('lack of env variables');

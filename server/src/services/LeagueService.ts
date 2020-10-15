@@ -18,6 +18,8 @@ export default class{
         const user = await this.entities.user.find({id});
         if( !user ) return false;
 
+        console.log(user.name);
+
         const league = await this.entities.league.find({ level: user.level });
         if( !league ){
             const newLeague = await this.entities.league.create(user.level);
@@ -28,7 +30,7 @@ export default class{
         }
         else{
             await league.addParticipant(id);
-            user.leagueId = league.id;
+            user.setLeaugeId(league.id);
             return true;
         }
     }
@@ -48,7 +50,10 @@ export default class{
             }            
         }));
         
-        return fullLeaderboard;
+        return {
+            level: league.level,
+            leaderboard: fullLeaderboard
+        };
     }
 
 }

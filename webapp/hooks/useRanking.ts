@@ -1,11 +1,10 @@
-import ENDPOINT from '../ENDPOINT';
 import { useQuery } from 'react-query'
+import ENDPOINT from '../ENDPOINT';
 
+const useRanking = (token: string, wait: boolean) =>{
 
-const useChart = (token: string, wait: boolean) =>{
-    
     const {isLoading, error, data} = useQuery('events', ()=>
-    fetch(ENDPOINT+'/score/getScore', {
+    fetch(ENDPOINT+'/league/getLeaderboard', {
         method: 'GET',
         headers: {
             "Access-Control-Allow-Origin": "*",
@@ -18,17 +17,12 @@ const useChart = (token: string, wait: boolean) =>{
         ),{
             enabled: !wait,
     });
-    
 
     return {
         isLoading,
-        data:{
-            labels: ["1", "2", "3", "4", "5", "6", "7"],
-            datasets: [{
-                label: "e",
-                data: data?.map(el=>el.score)
-            }],
-        }
-    };
+        data
+    }
 }
-export default useChart;
+
+export default useRanking;
+

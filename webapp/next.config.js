@@ -1,5 +1,3 @@
-import secrets from './secrets'
-
 const withPWA = require('next-pwa')
  
 module.exports = withPWA({
@@ -7,6 +5,6 @@ module.exports = withPWA({
     dest: 'public'
   },
   env:{
-    GMapsKey: secrets.GMapsKey
+    GMapsKey: 'AIzaSyCJeBzrM8qUxjsmQ6ZET_zqU9UVUMTUMD4'
   }
 })

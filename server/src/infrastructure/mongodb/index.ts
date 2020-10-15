@@ -14,7 +14,6 @@ export default ()=>{
                     delete newFilter.id;
                 }
                 const result = await User.findOne({ ...newFilter });
-                console.log(result)
                 const result2 = JSON.parse(JSON.stringify(result));
                 if( !result ) return false;
                 else return {
@@ -71,12 +70,10 @@ export default ()=>{
             },
             
             save: async (data: {line: number, busNumber: number, date:Date}) => {
-                console.log(3123123);
                 const event  = new Event({
                     ...data
                 })
                 const result = await event.save();
-                console.log(result)
                 if( !result ) return false;
                 else return {
                     ...result, 
@@ -101,7 +98,6 @@ export default ()=>{
             },
             findMultiple: async ()=>{
                 const t =  await Event.find();
-                console.log(t);
                 return t;
             }
         },
@@ -117,9 +113,10 @@ export default ()=>{
                 }
                 
                 const result = await League.findOne({ ...newFilter });
+                const result2 = JSON.parse(JSON.stringify(result));
                 if( !result ) return false;
                 else return {
-                    ...result, 
+                    ...result2,
                     id: result._id
                 };
             },
@@ -129,7 +126,6 @@ export default ()=>{
                     ...data
                 })
                 const result = await league.save();
-                console.log(result)
                 if( !result ) return false;
                 else return {
                     ...result, 
@@ -138,24 +134,18 @@ export default ()=>{
             },
             
             update: async (filter: { id: string }, prop: string, value: any) => {
-                const newFilter:any = {
-                    ...filter
-                };
-                if(filter.id){
-                    newFilter._id = newFilter.id;
-                    delete newFilter.id;
-                }
-                
                 const updateObject:any = {};
                 updateObject[prop] = value;
-                
-                const result = await League.updateOne({...newFilter}, updateObject);
+                const result = await League.updateOne({_id: filter.id}, updateObject);
                 return result.nModified;
             },
             findMultiple: async ()=>{
                 const t =  await League.find();
-                console.log(t);
                 return t;
+            },
+            pushP: async (id: string, value: any) =>{
+                const result = await League.updateOne( { _id: id}, {$push: {participators: value}});
+                return result;
             }
         }
 

@@ -58,11 +58,12 @@
   align-items: center;
   justify-content: center;
   flex: 1;
-  color: rgba(0, 0, 0, 0.849)
+  color: rgba(218, 36, 36, 0.849);
 }
 .resum >div > div:last-of-type{
   text-align: center;
-  color: rgba(0, 0, 0, 0.513)
+  color: rgba(0, 0, 0, 0.513);
+  margin-top: -10px;
 }
 
 .buttonField{

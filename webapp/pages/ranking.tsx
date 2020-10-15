@@ -6,8 +6,10 @@ import useLoginAccess from '../hooks/useLoginAccess'
 import { useContext } from 'react'
 import useRanking from '../hooks/useRanking'
 import { UserContext } from '../components/UserContext'
+import { ImDiamonds } from 'react-icons/im'
 
-const leaguesNames = ['silver', 'gold', 'diamond'];
+const leaguesNames = ['Bronze', 'Silver', 'Gold','Emerald', 'Diamond'];
+const leaguesColors = ['#bd6628', '#d1d1d1', '#edda05', '#34ed41', '#34b7eb']
 
 export default function Ranking() {
 
@@ -23,10 +25,23 @@ export default function Ranking() {
       <meta lang="en"></meta>
     </Head>
     <header className={styles.header}>
-        {leaguesNames[data?.level]} league
+      <div className={styles.diamondIcons}>
+
+        {leaguesNames.map((name, index)=>
+            <div 
+            style={{color: leaguesColors[index]}}
+            className={index===data?.level ? styles.active : styles.normal}
+            >
+              <ImDiamonds/>
+            </div>
+        )}
+        </div>
+        <div className={styles.title}>
+          {leaguesNames[data?.level]} League
+        </div>
     </header>
     <main className={styles.main}>
-      {data?.leaderboard.map((el, index)=>
+      {data?.leaderboard?.map((el, index)=>
         <div className={styles.pos}>
           <div>{index+1}. {el.name}</div><div>{el.score}</div>
         </div>

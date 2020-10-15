@@ -16,6 +16,11 @@ const useRanking = (token: string, wait: boolean) =>{
         res.json()
         ),{
             enabled: !wait,
+            initialData: {
+                level: -1,
+                leaderboard: []
+            },
+            initialStale: true,
     });
 
     return {

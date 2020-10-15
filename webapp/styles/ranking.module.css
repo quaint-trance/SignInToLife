@@ -56,7 +56,25 @@
   }
 
   .header{
-    text-align: center;
-    font-size: 2rem;
+    display: flex;
+    flex-direction: column;
     padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .diamondIcons{
+    text-align: center;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .diamondIcons .active{
+    font-size: 4rem;
+  }
+
+  .title{
+    font-size: 2rem;
+    text-align: center;
   }

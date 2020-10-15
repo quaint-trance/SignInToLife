@@ -17,6 +17,8 @@ const useChart = (token: string, wait: boolean) =>{
         res.json()
         ),{
             enabled: !wait,
+            initialData: [],
+            initialStale: true,
     });
     
 
@@ -26,7 +28,7 @@ const useChart = (token: string, wait: boolean) =>{
             labels: ["1", "2", "3", "4", "5", "6", "7"],
             datasets: [{
                 label: "e",
-                data: data?.map(el=>el.score)
+                data: data.map ? data?.map(el=>el.score) : []
             }],
         }
     };

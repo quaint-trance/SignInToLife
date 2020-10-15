@@ -43,7 +43,7 @@ const LocationPin = ({ text, click}) => (
 export default function Map() {
   
   
-  const {isLoading, events} = useEvents();
+  const {isLoading, events, isError} = useEvents();
   const [currentPin, setCurrentPin] = useState();
   const router = useRouter();
   
@@ -75,10 +75,11 @@ const transitions = useTransition(currentPin, currentPin, {
           options={createMapOptions}
           
         >
-          {events && events.map((e, i)=>
+          {events.map && !isError && events.map((e, i)=>
+          e?.place && 
           <LocationPin
-          lat={e?.place?.x}
-          lng={e?.place?.y}
+          lat={e.place.x}
+          lng={e.place.y}
           click={()=>setCurrentPin(i)}
         />)}
          

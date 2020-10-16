@@ -22,7 +22,8 @@ export default function Ranking() {
       from: { opacity: 0 },
       enter: { opacity: 1 },
       leave: { opacity: 0 },
-      config:{duration: 1000*.5}
+      config:{duration: 1000*.5},
+      
   })
 
   return (

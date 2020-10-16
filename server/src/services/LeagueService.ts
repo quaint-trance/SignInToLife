@@ -38,9 +38,14 @@ export default class{
     async getLeaderboardToUser(id: string){
         const user = await this.entities.user.find({id});
         if( !user ) return false;
+        console.log(user.name);
+        console.log(user.leagueId);
+
+        if(user.leagueId === '' || !user.leagueId) return null;
 
         const league = await this.entities.league.find({id: user.leagueId});
         if(!league) return false;
+        console.log(league)
 
         const fullLeaderboard = await Promise.all(league.getLeaderboard().map(async (el)=> {
             const u = await this.entities.user.find({id: el.id});

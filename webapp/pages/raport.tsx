@@ -4,55 +4,46 @@ import useLoginAccess from '../hooks/useLoginAccess'
 import { Close } from '@material-ui/icons'
 import {useState} from 'react'
 import { animated, useSpring } from 'react-spring'
+import { useRouter } from 'next/router'
+import useRaport from '../hooks/useRaport'
 
-const questions=[{
-    name: "What is heheeh?",
-    type: "closed",
-    answers:[
-        "HTML file really",
-        "easy to understand",
-        "the expressiveness",
-        "This is a type of file"
-    ]
-},{
-    name: "What is uhuhuh?",
-    type: "closed",
-    answers:[
-        "HTML file really",
-        "This is a type of file",
-        "the expressiveness",
-        "easy to understand", 
-    ]
-}
-];
-
-export default function Home() {
+export default function Raport() {
+    const router = useRouter();
     useLoginAccess();
-    const [questionNumber, setQuestionNumber] = useState(0);
+    const { questions, handleClick, questionNumber, done } = useRaport('');
     const progressBarProps = useSpring({width: `${100*questionNumber/questions.length}%`})
 
     return (
         <div className={styles.container}>
             <Head>
-            <title>Map</title>
+            <title>Ranking</title>
             <link rel="icon" href="/favicon.ico" />
             <link rel="manifest" href="/manifest.json" />
             <meta lang="en"></meta>
             </Head>
             <div className={styles.header}>
-                <Close />
+                <Close onClick={()=>router.back()}/>
                 <div className={styles.progressBar}>
                     <animated.div style={progressBarProps}></animated.div>
                 </div>
             </div>
-            <main className={styles.main}>
+
+            {!done && <main className={styles.main}>
                 <div className={styles.name}>{ questions[questionNumber].name }</div>
                 <div className={styles.answers}>
                     {questions[questionNumber].answers.map((el, index)=>(
-                        <div onClick={()=>setQuestionNumber(o=>o+1)}>{el}</div>
+                        <button
+                            className={styles.button}
+                            onClick={()=>handleClick(index)}
+                            key={index+'-'+questionNumber}
+                        >{el}</button>
                     ))}
                 </div>
-            </main>
+            </main>}
+            {done && <main className={styles.done}>
+                Done!
+            </main>}
+
         </div>
   )
 }

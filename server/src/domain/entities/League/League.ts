@@ -24,7 +24,6 @@ const LeagueFactory = (databaseI: databaseT) =>{
         
         static async find(filter:{ id?:string, level?:number }){
             const element = await databaseI.league.find( {...filter} );
-            console.log(element);
             if(!element) return undefined;
             return new League(element);
         }
@@ -34,7 +33,6 @@ const LeagueFactory = (databaseI: databaseT) =>{
                 participators: [],
                 level
             });
-            console.log(result);
             if( !result ) return false;
             return new League(result);
         }
@@ -55,8 +53,8 @@ const LeagueFactory = (databaseI: databaseT) =>{
 
         async addParticipant(id: string){
             this.participators.push({id, score: 0});
-            console.log(this.participators);
-            return await databaseI.league.pushP(this.id, {id, score: 0}); 
+            await databaseI.league.pushP(this.id, {id, score: 0}); 
+            return true;
         }
 
         async changeScore(id: string, delta: number){

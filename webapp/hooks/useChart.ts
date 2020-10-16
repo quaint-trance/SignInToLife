@@ -4,7 +4,7 @@ import { useQuery } from 'react-query'
 
 const useChart = (token: string, wait: boolean) =>{
     
-    const {isLoading, error, data} = useQuery('events', ()=>
+    const {isLoading, error, data} = useQuery('score', ()=>
     fetch(ENDPOINT+'/score/getScore', {
         method: 'GET',
         headers: {
@@ -19,6 +19,7 @@ const useChart = (token: string, wait: boolean) =>{
             enabled: !wait,
             initialData: [],
             initialStale: true,
+            cacheTime: 1000*60*10
     });
     
 

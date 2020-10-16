@@ -54,8 +54,8 @@ describe('user & league', ()=>{
         const result2 = await league.addParticipant("2");
         await league.addParticipant("3");
 
-        expect(result).toBe(true);
-        expect(result2).toBe(true);
+        expect(result && result2).toBe(true);
+        console.log( league.participators )
         expect( league.participators.length ).toBe(3);
         done();
     })

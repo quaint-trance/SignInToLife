@@ -3,7 +3,7 @@ import ENDPOINT from '../ENDPOINT';
 
 const useRanking = (token: string, wait: boolean) =>{
 
-    const {isLoading, error, data} = useQuery('events', ()=>
+    const {isLoading, error, data} = useQuery('ranking', ()=>
     fetch(ENDPOINT+'/league/getLeaderboard', {
         method: 'GET',
         headers: {
@@ -12,20 +12,28 @@ const useRanking = (token: string, wait: boolean) =>{
             'Content-Type': 'application/json',
             'auth-token': token
         },
-    }).then(res=>
-        res.json()
-        ),{
+    }).then(res=>{
+        if(res.status === 204 ) 
+            return {level: -2, leaderboard: []};
+        else return res.json()
+    }
+    ),{
             enabled: !wait,
             initialData: {
                 level: -1,
                 leaderboard: []
             },
             initialStale: true,
+            cacheTime: 1000*60*20,
+            refetchInterval: 1000*60*1
     });
 
     return {
         isLoading,
-        data
+        data:{
+            ...data,
+            leaderboard: data.leaderboard.map((el, index)=> {return {...el, index}})
+        }
     }
 }
 

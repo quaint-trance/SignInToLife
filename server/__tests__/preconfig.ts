@@ -83,6 +83,11 @@ export default (database: {user: any[], event: any[], league: any[]})=>{
             },
             findMultiple: (filter:{id:string})=>{
                 return database.league;
+            },
+            pushP:(id: string, value: any)=>{
+                /*const element = databaseI.league.find({id});
+                if(!element) return false;
+                element.participators.push(value);*/
             }
         }
 }

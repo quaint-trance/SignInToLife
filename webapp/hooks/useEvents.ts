@@ -17,6 +17,7 @@ export default ()=>{
         ),{
             initialData: [],
             initialStale: true,
+            cacheTime: 1000*60*10
         }
     );
 

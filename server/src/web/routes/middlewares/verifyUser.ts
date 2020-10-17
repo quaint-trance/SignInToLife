@@ -3,7 +3,7 @@ import express from 'express';
 
 const auth = (req: any, res: express.Response, next: any) =>{
     const token = req.header('auth-token');
-    console.log(token)
+    console.log(2137, token)
     if(!token) return res.status(403).send('No token');
     try{
         if(!process.env.TOKEN_K) throw new Error('no varibles!');

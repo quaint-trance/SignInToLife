@@ -19,4 +19,12 @@ router.get('/addUserToLeaderBoard', verifyUser , async (req:reqType, res: any)=>
     else res.status(200).send(result);
 });
 
+
+router.post('/submitRaport', verifyUser , async (req:reqType, res: any)=>{
+    console.log('eeeee');
+    const result = await mainF.leagueService.submitRaport(req.user, req.body.data)
+    if( !result ) res.status(400).send();
+    else res.status(200).send();
+});
+
 export default router;

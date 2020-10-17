@@ -1,3 +1,4 @@
+import { mainF } from '..';
 import { LeagueT } from '../domain/entities/League/League'
 import { UserT } from '../domain/entities/User/User'
 
@@ -41,7 +42,7 @@ export default class{
         console.log(user.name);
         console.log(user.leagueId);
 
-        if(user.leagueId === '' || !user.leagueId) return null;
+        if(user.leagueId === '' || !user.leagueId) return null;0
 
         const league = await this.entities.league.find({id: user.leagueId});
         if(!league) return false;
@@ -59,6 +60,24 @@ export default class{
             level: league.level,
             leaderboard: fullLeaderboard
         };
+    }
+
+    async submitRaport(id: string, data: any[]){
+        const user = await mainF.entities.user.find({id});
+        if( !user ) return false;
+
+        const league = await mainF.entities.league.find({ id: user.leagueId });
+        if( !league ) return false;
+
+        const score = this.calcScore(data);
+        league.changeScore(id, score);
+        user.addPoints(score);
+
+        return true;
+    }
+
+    calcScore(data: any[]){
+        return 10;
     }
 
 }

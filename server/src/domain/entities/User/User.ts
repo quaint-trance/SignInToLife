@@ -97,6 +97,18 @@ const UserFactory = (databaseI: databaseT, hashI: hashT) =>{
             this.leagueId = id;
             return await this.update('leagueId', id);
         }
+
+        async addPoints(points: number){
+            const now = new Date();
+            const f = this.gainedScoreHistory.find(el=>
+                (new Date(el.date)).getFullYear() === now.getFullYear()
+                && (new Date(el.date)).getDate() === now.getDate()
+                && (new Date(el.date)).getMonth() === now.getMonth()
+            )
+            if(f) f.score+= points;
+            else this.gainedScoreHistory.push({score: points, date: now});
+            await this.update('gainedScoreHistory', this.gainedScoreHistory)
+        }
         
     }
 }

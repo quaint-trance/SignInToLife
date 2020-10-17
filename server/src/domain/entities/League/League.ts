@@ -61,6 +61,8 @@ const LeagueFactory = (databaseI: databaseT) =>{
             const par = this.participators.find(p => p.id === id);
             if( !par ) return false;
             par.score += delta;
+            console.log(delta);
+            return await this.update('participators', this.participators)
         }
 
         getLeaderboard(){

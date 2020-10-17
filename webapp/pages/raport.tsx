@@ -2,15 +2,17 @@ import Head from 'next/head'
 import styles from '../styles/Raport.module.css'
 import useLoginAccess from '../hooks/useLoginAccess'
 import { Close } from '@material-ui/icons'
-import {useState} from 'react'
+import {useContext} from 'react'
 import { animated, useSpring } from 'react-spring'
 import { useRouter } from 'next/router'
 import useRaport from '../hooks/useRaport'
+import { UserContext } from '../components/UserContext'
 
 export default function Raport() {
     const router = useRouter();
-    useLoginAccess();
-    const { questions, handleClick, questionNumber, done } = useRaport('');
+    useLoginAccess(); 
+    const { token } = useContext(UserContext);
+    const { questions, handleClick, questionNumber, done } = useRaport(token);
     const progressBarProps = useSpring({width: `${100*questionNumber/questions.length}%`})
 
     return (

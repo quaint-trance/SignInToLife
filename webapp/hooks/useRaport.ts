@@ -62,7 +62,7 @@ const useRaport =  (token: string) =>{
 
 
     const [mutate, {isLoading, isError, isSuccess}] = useMutation((data: any[])=>
-    fetch(ENDPOINT+'/TODOE', {
+    fetch(ENDPOINT+'/league/submitRaport', {
         method: 'POST',
         headers: {
             "Access-Control-Allow-Origin": "*",

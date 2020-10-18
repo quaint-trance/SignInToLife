@@ -9,6 +9,7 @@ type reqType = express.Request & {user: string};
 
 router.get('/getEvents' ,async (req:reqType, res: any)=>{
     const result = await mainF.eventService.getAll();
+    console.log(result)
     if( !result ) res.status(423).send();
     else res.status(200).send(result);
 });

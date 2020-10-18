@@ -22,7 +22,14 @@ export default ()=>{
     );
 
     return {
-        events: data,
+        events: data.map(el => ({
+            name: el.name,
+            location: {
+                lat: el.place.x / 1,
+                lng: el.place.y / 1,
+            },
+            id: el.id
+        })),
         isLoading,
         isError,
         error

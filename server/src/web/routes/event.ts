@@ -15,7 +15,7 @@ router.get('/getEvents' ,async (req:reqType, res: any)=>{
 });
 
 router.post('/addEvent', verifyUser, eventValidation, async (req:reqType, res: any)=>{
-    const result = await mainF.eventService.createEvent(req.body.date, req.body.place, req.user, req.body.name);
+    const result = await mainF.eventService.createEvent(req.body.date, req.body.place, req.user, req.body.name, req.body.description);
     if( result ) res.status(200).send();
     else res.status(400).send();
 });

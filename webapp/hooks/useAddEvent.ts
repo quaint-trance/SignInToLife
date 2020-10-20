@@ -3,7 +3,7 @@ import ENDPOINT from '../ENDPOINT'
 
 const useAddEvent =  (token: string) =>{
 
-    const [mutate, {isLoading, isError, isSuccess}] = useMutation((data: {name: string, date: Date, place:{x:string, y:string}})=>
+    const [mutate, {isLoading, isError, isSuccess}] = useMutation((data: {name: string, date: Date, place:{x:string, y:string}, description: string})=>
     fetch(ENDPOINT+'/events/addEvent', {
         method: 'POST',
         headers: {
@@ -16,6 +16,7 @@ const useAddEvent =  (token: string) =>{
             'name': data.name,
             'date': data.date,
             'place': data.place,
+            'description': data.description,
         })
     }).then(res=>{
         if(Math.floor(res.status/100) === 4) throw new Error(res.status+'');
@@ -23,8 +24,8 @@ const useAddEvent =  (token: string) =>{
     }))
 
     return {
-        add: async (name: string, date: Date, place:{x:string, y:string})=>{
-           mutate({name, date, place});
+        add: async (name: string, date: Date, place:{x:string, y:string}, description: string)=>{
+            mutate({name, date, place, description});
         },
         isLoading,
         isError,

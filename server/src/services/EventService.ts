@@ -12,8 +12,8 @@ export default class{
         this.entities = entities;
     }
 
-    async createEvent(date: Date, place:{x:string, y:string}, creatorId: string, name: string){
-        const event = await this.entities.event.create(date, place, creatorId, name);
+    async createEvent(date: Date, place:{x:string, y:string}, creatorId: string, name: string, description: string){
+        const event = await this.entities.event.create(date, place, creatorId, name, description);
         if( !event ) return false;
         return true;
     }

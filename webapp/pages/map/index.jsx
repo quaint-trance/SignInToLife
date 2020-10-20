@@ -64,7 +64,7 @@ const [ zoomLevel, setZoomLevel ] = useState(13);
   }, [])
   
   const center = () =>{
-    setCenterPosition(currentPosition)
+    setCenterPosition(JSON.parse(JSON.stringify(currentPosition)))
   }
 
   return (

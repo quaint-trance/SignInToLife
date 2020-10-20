@@ -97,8 +97,13 @@ export default ()=>{
                 return result.nModified;
             },
             findMultiple: async ()=>{
-                const t =  await Event.find();
-                return t.map(el => ({name: el.name, id: el._id, date: el.date, place: el.place, creator: el.creator}));
+                const result =  await Event.find();
+                const result2 = JSON.parse(JSON.stringify(result));
+                if( !result ) return false;
+                else return result2.map((el: any)=>({
+                    ...el,
+                    id: el._id
+                }))
             }
         },
         league: {

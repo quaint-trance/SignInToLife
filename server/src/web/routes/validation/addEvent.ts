@@ -12,7 +12,8 @@ const eventValidate = (req: any, res: express.Response, next: any) =>{
             y: Joi.string().required()
         },
         name: Joi.string().required(),
-        date: Joi.date()
+        date: Joi.date(),
+        description: Joi.string()
     })
 
     const { error, value } = schema.validate(req.body);

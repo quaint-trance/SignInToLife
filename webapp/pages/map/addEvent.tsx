@@ -17,7 +17,7 @@ export default function Login() {
 
     const handleFormSubmit = (event) =>{
         event.preventDefault();
-        add(event.target.name.value, new Date(), {x: event.target.x.value, y: event.target.y.value});
+        add(event.target.name.value, new Date(), {x: event.target.x.value, y: event.target.y.value}, event.target.description.value);
     }
 
     return (
@@ -39,6 +39,9 @@ export default function Login() {
             
             <label htmlFor="name">Name</label>
             <input type="text" name="name" id="name" />
+            
+            <label htmlFor="description">Description</label>
+            <textarea name="description" id="description"/>
             
             <label htmlFor="x">x</label>
             <input type="text" name="x" id="x"/>

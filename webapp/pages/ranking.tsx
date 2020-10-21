@@ -18,7 +18,7 @@ export default function Ranking() {
   const {token, loading} = useContext(UserContext);
   const {isLoading, data} = useRanking(token, loading);
 
-  const leaderboardTransition = useTransition(data?.leaderboard, el => `${el._id}${el.index}`, {
+  const leaderboardTransition = useTransition(data?.leaderboard, el => `${el._id}${el.id}`, {
       from: { opacity: 0 },
       enter: { opacity: 1 },
       leave: { opacity: 0 },

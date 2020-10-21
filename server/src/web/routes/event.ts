@@ -20,5 +20,12 @@ router.post('/addEvent', verifyUser, eventValidation, async (req:reqType, res: a
     else res.status(400).send();
 });
 
+router.post('/participate', verifyUser, async (req:reqType, res: any)=>{
+    console.log('ee');
+    const result = await mainF.eventService.participateInEvent(req.body.eventId, req.user);
+    if( result ) res.status(200).send();
+    else res.status(400).send();
+});
+
 
 export default router;

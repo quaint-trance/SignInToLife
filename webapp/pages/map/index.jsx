@@ -1,49 +1,39 @@
-import Head from 'next/head'
 import styles from '../../styles/Map.module.css'
+import Head from 'next/head'
 import Navbar from '../../components/Navbar'
 import useEvents from '../../hooks/useEvents'
-import { Room, Add } from '@material-ui/icons'
-import { MdAdd } from 'react-icons/md'
 import { useState, useEffect } from 'react'
 import MapCard from '../../components/MapCard'
 import MapSearchbar from '../../components/MapSearchbar'
 import { useRouter } from 'next/router'
 import { animated, useTransition } from 'react-spring'
+import { MdAdd, MdGpsFixed } from 'react-icons/md'
+import { GoogleMap, LoadScript, Marker, OverlayView } from '@react-google-maps/api';
 
-import { MdPlace, MdGpsFixed } from 'react-icons/md'
-
-import { GoogleMap, LoadScript, Marker, Circle, OverlayView } from '@react-google-maps/api';
 const mapStyles = {        
   height: "100vh",
   width: "100%"
 };
 
-const LocationPin = ({ text, onClick}) => (
-  <div className={styles.pin} onClick={onClick}>
-    <Room />
-  </div>
-)
-
-
 export default function Map() {
-  
   
   const {isLoading, events, isError} = useEvents();
   const [currentPin, setCurrentPin] = useState();
   const router = useRouter();
   
-const transitions = useTransition(currentPin, currentPin, {
-  from: { opacity: 0 },
-  enter: { opacity: 1 },
-  leave: { opacity: 1 },
-  config:{
-    duration: 150
-  }  
-})
+  const [ currentPosition, setCurrentPosition ] = useState({});
+  const [ centerPosition, setCenterPosition ] = useState({lat: 52, lng: 20});
+  const [ zoomLevel, setZoomLevel ] = useState(13);
 
-const [ currentPosition, setCurrentPosition ] = useState({});
-const [ centerPosition, setCenterPosition ] = useState({lat: 52, lng: 20});
-const [ zoomLevel, setZoomLevel ] = useState(13);
+  const transitions = useTransition(currentPin, currentPin, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 1 },
+    config:{
+      duration: 150
+    }  
+  })
+
   
   const success = position => {
     const currentPosition = {
@@ -85,7 +75,9 @@ const [ zoomLevel, setZoomLevel ] = useState(13);
         <GoogleMap
           mapContainerStyle={mapStyles}
           zoom={zoomLevel}
-          center={centerPosition}>
+          center={centerPosition}
+          style={{display: "none"}}
+          >
           {
             currentPosition.lat &&
             ( 
@@ -114,10 +106,8 @@ const [ zoomLevel, setZoomLevel ] = useState(13);
           {transitions.map(({ item, key, props }) => 
         <animated.div key={key} style={props}>
           <MapCard event={events[currentPin]} close={()=>setCurrentPin()} />
-          😄</animated.div>
+        </animated.div>
           )}
-            
-
             {false && <MapCard event={events[currentPin]} close={()=>setCurrentPin()} />}
             </>
           : <>
@@ -130,7 +120,6 @@ const [ zoomLevel, setZoomLevel ] = useState(13);
           )}</>
       }
       </main>
-
     </div>
   )
 }

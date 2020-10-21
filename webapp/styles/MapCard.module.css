@@ -103,7 +103,10 @@
 }
 
 .Fmain{
-   padding: 15px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 15px;
 }
 
 .Fphotos{
@@ -122,4 +125,26 @@
 
 .Fdescription{
     padding-top: 20px;
+}
+
+
+.buttonP{
+    outline: none;
+    position: relative;
+    border: none;
+    
+    background-color: var(--c-main1);  
+    color: rgba(255, 255, 255, 0.952);
+    
+    font-weight: 400;
+    font-size: 1.5rem;
+    border-radius: 5px;
+
+    width: 90vw;
+    height: 60px;
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

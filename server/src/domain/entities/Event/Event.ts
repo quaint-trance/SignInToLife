@@ -62,6 +62,14 @@ const EventFactory = (databaseI: databaseT) =>{
             const changed = element.map(el=> new Event(el));
             return changed;
         }
+
+        async makeActivity(userId: string, type: string){
+            if(this.activity) this.activity.push({userId, type});
+            else this.activity = [{userId, type}];
+            
+            await this.update('activity', this.activity);
+            return true;
+        }
         
     }
 }

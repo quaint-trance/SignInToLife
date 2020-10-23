@@ -1,10 +1,10 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useCallback } from 'react'
 import styles from '../styles/MapCard.module.css'
 import { HighlightOff } from '@material-ui/icons'
-import {animated, useSpring} from 'react-spring'
+import {animated, animated as a, useSpring, useTransition, useSprings} from 'react-spring'
 import { MdKeyboardBackspace} from 'react-icons/md'
 
-import { useDrag, useGesture } from 'react-use-gesture'
+import { useDrag } from 'react-use-gesture'
 import useParticipate from '../hooks/useParticipate'
 import { UserContext } from './UserContext'
 
@@ -18,8 +18,10 @@ export default function MapCard({event, close}) {
   
   const [fullView, setFullView] = useState(false);
   const { token } = useContext(UserContext);
+  
+  const [navCard, setNavCard] = useState(0);
 
-  const {isSuccess, submit} = useParticipate(token);
+  const {isSuccess, submit, activity} = useParticipate(token, event?.id);
 
   const animatedCard = useSpring({
     height: fullView ? "100vh" : "30vh",
@@ -31,7 +33,7 @@ export default function MapCard({event, close}) {
   })
 
   const animatedTitle = useSpring({
-    fontSize: fullView ? "2rem" : "1.4rem",
+    fontSize: fullView ? "1.7rem" : "1.4rem",
     config
   })
 
@@ -50,37 +52,111 @@ export default function MapCard({event, close}) {
     config
   })
 
-  const bind = useDrag(({direction}) => {
+  const bindFull = useDrag(({direction}) => {
       const x = Math.floor(direction[1]*100);
-      if(!fullView && x < -90) setFullView(true);
-      if(fullView && x > 90) setFullView(false);
+      //if(!fullView && x < -90) setFullView(true);
+      //if(fullView && x > 90) setFullView(false);
   })
 
-return (
-    <animated.div  {...bind()} className={fullView ? styles.cardFull : styles.card} style={animatedCard}>
-      <animated.header className={styles.header} style={animatedNavbar}>
-        <MdKeyboardBackspace onClick={()=>setFullView(false)}></MdKeyboardBackspace>
-          <img src="/images/logo.png" alt="logo"/>
-      </animated.header>
-      <animated.div className={styles.Fphotos} style={animatedPhotos}>
-        {event.photos?.map(photo=>(
-          <img src="" alt="e"/>
-        ))}
-      </animated.div>
-      <main className={styles.Fmain}>
-        <animated.div className={styles.Ftitle} style={animatedTitle}>
-          {event.name}
-        </animated.div>
+  const formDate = (dateString: string) =>{
+    if(!dateString) return '';
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+    const date = new Date(dateString);
+    return `${date.getDay()} ${months[date.getMonth()]}`
+  }
+
+  const pages = [
+    ({ style }) => 
+      <a.section {...bindCardsNav()} style={style}>
         <div className={styles.Fdescription}>
           {event.description}
         </div>
         <button onClick={()=>submit(event.id)} className={styles.buttonP} style={{display: !fullView ? "none" : "block"}} >Participate</button>
+      </a.section>,
+    ({ style }) => 
+      <a.section {...bindCardsNav()} style={style}>
+        <div className={styles.activity}>
+          {activity?.slice(0, Math.min(activity.length, 10)).map(el=>(
+            <div><div>img</div><div>{el?.user?.name}</div><div>{formDate(el?.date)}</div> <div>{el?.data}</div></div>
+            ))}
+        </div>
+      </a.section>,
+    ({ style }) => 
+      <a.section {...bindCardsNav()} style={style}>
+        <div className={styles.info}>     
+        </div>
+      </a.section>,
+  ]
+
+  const changeNavCard = useCallback((delta: number) => setNavCard(t => t+delta), [])
+
+  const transitions = useTransition(navCard, p => p, {
+    from: { opacity: 0, transform: `translate3d(100%,0,0)` },
+    enter: { opacity: 1, transform: `translate3d(0%,0,0)`  },
+    leave: { opacity: 0, transform: `translate3d(100%,0,0)` },
+  })
+
+  
+  const bindCardsNav = useDrag(({direction}) => {
+    const y = Math.floor(direction[0]*100);
+    if(navCard !== 0 && y > 90) changeNavCard(-1);
+    if(navCard !== 2 && y < -90) changeNavCard(1);
+})
+
+
+return (
+    <a.div  {...bindFull()} className={fullView ? styles.cardFull : styles.card} style={animatedCard}>
+      
+      <a.header className={styles.header} style={animatedNavbar}>
+        <MdKeyboardBackspace onClick={()=>setFullView(false)}></MdKeyboardBackspace>
+          <img src="/images/logo.png" alt="logo"/>
+      </a.header>
+
+      <a.div className={styles.Fphotos} style={animatedPhotos}>
+        {event.photos?.map(photo=>(
+          <img src="" alt="e"/>
+        ))}
+      </a.div>
+      
+      <main className={styles.Fmain}>
+        <header>
+          <a.div className={styles.Ftitle} style={animatedTitle}>
+            {event.name}
+          </a.div>
+          <nav style={{display: !fullView ? "none" : "flex"}} className={styles.cardNav}>
+            <div className={navCard == 0  && styles.active} onClick={()=>setNavCard(0)}>about</div>
+            <div className={navCard == 1  && styles.active} onClick={()=>setNavCard(1)}>activity</div>
+            <div className={navCard == 2  && styles.active} onClick={()=>setNavCard(2)}>info</div>
+          </nav>
+        </header>
+
+        {navCard === 0 && <section {...bindCardsNav()}>
+        <div className={styles.Fdescription}>
+          {event.description}
+        </div>
+        <button onClick={()=>submit(event.id)} className={styles.buttonP} style={{display: !fullView ? "none" : "block"}} >Participate</button>
+      </section>}
+
+      {navCard===1 &&<section {...bindCardsNav()}>
+        <div className={styles.activity}>
+          {activity?.slice(0, Math.min(activity.length, 10)).map(el=>(
+            <div><div>img</div><div>{el?.user?.name}</div><div>{formDate(el?.date)}</div> <div>{el?.data}</div></div>
+            ))}
+        </div>
+      </section>}
+
+      {navCard===2 &&<section {...bindCardsNav()}>
+        E
+      </section>}
+
       </main>
-      <animated.div className={styles.options} style={{display: fullView ? "none" : "block"}}>
+      
+      <a.aside className={styles.options} style={{display: fullView ? "none" : "block"}}>
         <div className={styles.date} >{(new Date(event.date)).toLocaleDateString()}</div>
         <button className={styles.button} onClick={()=>setFullView(true)}>more</button>
-        <animated.div className={styles.close} onClick={close} style={animatedHideOnFull}> <HighlightOff /></animated.div>
-      </animated.div>
-    </animated.div>
+        <a.div className={styles.close} onClick={close} style={animatedHideOnFull}> <HighlightOff /></a.div>
+      </a.aside>
+
+    </a.div>
   )
 }

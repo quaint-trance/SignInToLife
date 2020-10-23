@@ -40,4 +40,23 @@ export default class{
         return true;
     }
 
+    async getEventActivity(id: string){
+        const event = await this.entities.event.find({id});
+        if(!event) return false;
+        console.log(event);
+        if(!event.activity) return [];
+        const fullActivity = Promise.all(event.activity.map(async(el)=>{
+            const user = await this.entities.user.find({id: el.userId});
+            if(!user) return null;
+            return {
+                ...el,
+                user: {
+                    name: user.name,
+                    level: user.level
+                }
+            }
+        }));
+        return fullActivity;
+    }
+
 }

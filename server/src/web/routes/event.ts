@@ -9,7 +9,14 @@ type reqType = express.Request & {user: string};
 
 router.get('/getEvents' ,async (req:reqType, res: any)=>{
     const result = await mainF.eventService.getAll();
-    console.log(result)
+    if( !result ) res.status(423).send();
+    else res.status(200).send(result);
+});
+
+router.get('/getEventActivity' ,async (req, res)=>{
+    const id = req.header('id');
+    if(!id) return res.status(400).send();
+    const result = await mainF.eventService.getEventActivity(id);
     if( !result ) res.status(423).send();
     else res.status(200).send(result);
 });
@@ -21,7 +28,6 @@ router.post('/addEvent', verifyUser, eventValidation, async (req:reqType, res: a
 });
 
 router.post('/participate', verifyUser, async (req:reqType, res: any)=>{
-    console.log('ee');
     const result = await mainF.eventService.participateInEvent(req.body.eventId, req.user);
     if( result ) res.status(200).send();
     else res.status(400).send();

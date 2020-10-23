@@ -8,7 +8,7 @@ export interface IEvent extends mongoose.Document{
     name: string;
     creator: string;
     description: string;
-    activity: {userId: string, type: string}[];
+    activity: {userId: string, data: string, date: string}[];
     photos: string[];
 }
 
@@ -21,7 +21,8 @@ const eventSchema = new mongoose.Schema({
     description: String,
     activity: [{
         userId: String,
-        type: String,
+        data: String,
+        date: Date,
     }],
     photos:[String]
 });

@@ -16,7 +16,7 @@ const EventFactory = (databaseI: databaseT) =>{
         name: string;
         creator: string;
         description: string;
-        activity: {userId: string, type: string}[];
+        activity: {userId: string, data: string, date: string}[];
         photos: string[];
 
         constructor(data: {id: string, date:Date, place: {x: string, y:string},photos: string[], creator: string, name: string, description: string, activity: any[] } ){
@@ -63,9 +63,10 @@ const EventFactory = (databaseI: databaseT) =>{
             return changed;
         }
 
-        async makeActivity(userId: string, type: string){
-            if(this.activity) this.activity.push({userId, type});
-            else this.activity = [{userId, type}];
+        async makeActivity(userId: string, data: string){
+            if(this.activity) this.activity.push({userId, data, date: (new Date()).toDateString() });
+            else this.activity = [{userId, data, date: (new Date()).toDateString() }];
+            
             
             await this.update('activity', this.activity);
             return true;

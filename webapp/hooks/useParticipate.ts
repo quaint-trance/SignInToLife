@@ -1,11 +1,8 @@
-import {  useMutation } from 'react-query'
+import {  useMutation, useQuery } from 'react-query'
 import ENDPOINT from '../ENDPOINT'
 import { useState } from 'react'
 
-const useParticipate =  (token: string) =>{
-
-    const [done, setDone] = useState(false);
-
+const useParticipate =  (token: string, eventId:string) =>{
 
     const [mutate, {isLoading, isError, isSuccess}] = useMutation((eventId:string)=>
     fetch(ENDPOINT+'/events/participate', {
@@ -24,11 +21,30 @@ const useParticipate =  (token: string) =>{
         else return res.json();
     }))
 
+    const act = useQuery('activity'+eventId, ()=>
+        fetch(ENDPOINT+'/events/getEventActivity', {
+            method: 'GET',
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'id': eventId
+            },
+        }).then(res=>
+            res.json()
+        ),{
+            initialData: [],
+            initialStale: true,
+            cacheTime: 1000*60*10
+        }
+    );
+
     return {
         submit: (eventId: string) => mutate(eventId),
         isSuccess,
         isLoading,
-        isError
+        isError,
+        activity: act?.data
     }
 }
 

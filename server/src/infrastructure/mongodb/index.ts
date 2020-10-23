@@ -62,9 +62,10 @@ export default ()=>{
                 }
                 
                 const result = await Event.findOne({ ...newFilter });
+                const result2 = JSON.parse(JSON.stringify(result));
                 if( !result ) return false;
                 else return {
-                    ...result, 
+                    ...result2,
                     id: result._id
                 };
             },

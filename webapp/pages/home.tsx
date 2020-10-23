@@ -5,9 +5,10 @@ import Link from 'next/link'
 import useLoginAccess from '../hooks/useLoginAccess'
 import Chart from '../components/Chart'
 import { useContext } from 'react'
+import useLogin from '../hooks/useLogin'
 
 export default function Home() {
-
+  useLoginAccess();
   return (
     <>
     <div className={styles.container}>

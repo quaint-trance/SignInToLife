@@ -1,7 +1,7 @@
 interface databaseT{
     user:{
         find: (filter: {email?: string, id?: string}) => any,
-        save: (newUser: {email: string, name: string, password: string, level: number}) => any,   
+        save: (newUser: {streak: number, points: number ,email: string, name: string, password: string, level: number}) => any,   
         update: (filter: {email?: string, id?: string, name?: string}, prop: string, value: any) => any,   
     }
 };
@@ -27,6 +27,8 @@ const UserFactory = (databaseI: databaseT, hashI: hashT) =>{
             score: number,
             date: string | Date;
         }[]
+        streak: number;
+        points: number;
 
         constructor(data:any){
             this.id = data.id;
@@ -37,6 +39,8 @@ const UserFactory = (databaseI: databaseT, hashI: hashT) =>{
             this.level = data.level;
             this.leagueId = data.leagueId;
             this.gainedScoreHistory = data.gainedScoreHistory;
+            this.points = data.points;
+            this.streak = data.streak;
         }
         
         static async find(filter:{email?:string, id?:string}){
@@ -55,7 +59,9 @@ const UserFactory = (databaseI: databaseT, hashI: hashT) =>{
                 email,
                 name,
                 password: hashedPassword,
-                level: 0
+                level: 0,
+                streak: 0,
+                points: 0,
             });
             if( !result ) return false;
             return new User(result);
@@ -98,6 +104,18 @@ const UserFactory = (databaseI: databaseT, hashI: hashT) =>{
             return await this.update('leagueId', id);
         }
 
+        async verifyStreak(){
+            const now = new Date();
+            const yesterday = this.gainedScoreHistory.find(el=>
+                (new Date(el.date)).getFullYear() === now.getFullYear()
+                && (new Date(el.date)).getDate() === now.getDate()-1
+                && (new Date(el.date)).getMonth() === now.getMonth()
+            )
+            if(yesterday) this.streak++;
+            else this.streak = 0;
+            await this.update('streak', 0);
+        }
+
         async addPoints(points: number){
             const now = new Date();
             const f = this.gainedScoreHistory.find(el=>
@@ -105,9 +123,16 @@ const UserFactory = (databaseI: databaseT, hashI: hashT) =>{
                 && (new Date(el.date)).getDate() === now.getDate()
                 && (new Date(el.date)).getMonth() === now.getMonth()
             )
-            if(f) f.score+= points;
-            else this.gainedScoreHistory.push({score: points, date: now});
-            await this.update('gainedScoreHistory', this.gainedScoreHistory)
+            this.points+=points;
+            if(f) {
+                f.score+= points;
+            }
+            else{
+                this.verifyStreak();
+                this.gainedScoreHistory.push({score: points, date: now});
+            }
+            this.update('gainedScoreHistory', this.gainedScoreHistory)
+            this.update('points', this.points);
         }
         
     }

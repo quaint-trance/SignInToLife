@@ -72,4 +72,13 @@ export default class{
         return await user?.getWeekScoreHistory();
     }
 
+    async getStreak(id: string){
+        const user =  await this.entities.user.find({id});
+        if(!user) return false;
+        return {
+            streak: user.streak,
+            point: user.points
+        }
+    }
+
 }

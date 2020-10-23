@@ -12,6 +12,8 @@ export interface IUser extends mongoose.Document{
         score: number,
         date: Date;
     }[];
+    streak: number;
+    points: number;
 }
 
 const userSchema = new mongoose.Schema({
@@ -36,7 +38,15 @@ const userSchema = new mongoose.Schema({
     gainedScoreHistory:[{
         score: Number,
         date: Date
-    }]
+    }],
+    streak: {
+        type: Number,
+        default: 0
+    },
+    points: {
+        type: Number,
+        default: 0
+    }
 
 });
 

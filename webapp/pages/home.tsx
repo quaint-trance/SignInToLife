@@ -9,6 +9,7 @@ import { useContext } from 'react'
 export default function Home() {
 
   return (
+    <>
     <div className={styles.container}>
     <Head>
       <title>Home</title>
@@ -42,7 +43,8 @@ export default function Home() {
       </div>
 
     </main>
-    <Navbar />
+    <Navbar/>
     </div>
+    </>
   )
 }

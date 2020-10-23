@@ -1,16 +1,19 @@
 .container {
-  min-height: calc(100vh - 50px);
   display: flex;
   flex-direction: column;
+  background-color: var(--c-main1);
+  min-height: 100vh;
 }
 
 .main{
+  min-height: calc(100vh - 120px);
+  background-color: rgb(255, 255, 255);
   font-size: 1rem;
   color: black;
   display: flex;
   flex-direction: column;
   flex: 1;
-}
+  }
 
 .title{
   width: 100%;
@@ -25,7 +28,7 @@
 }
 
 .chartBox{
-  width: 95vw;
+  width: 90vw;
   margin: 0 auto;
   height: 70vw;
   border: 3px solid var(--c-main1);

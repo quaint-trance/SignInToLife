@@ -55,11 +55,15 @@ export default function Ranking() {
       {data.level === -2 && <div className={styles.noLeague}>
         You are not in any league currently. Compelte a daily report to be assigned.
       </div> }
+      <div className={styles.list}>
       {leaderboardTransition.map(({item, props, key}, index)=>
-        <animated.div className={styles.pos} style={props} key={key}>
-          <div>{index+1}. {item?.name}</div><div>{item?.score}</div>
+        <animated.div className={styles.pos} style={props} key={key}> 
+            <div>{index+1}</div>
+            <div> {item?.name}</div>
+            <div>{item?.score}</div>
         </animated.div>
       )}
+      </div>
     </main>
     <Navbar />
     </div>

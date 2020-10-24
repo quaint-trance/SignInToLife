@@ -4,6 +4,7 @@ import { UserContext } from '../components/UserContext'
 import styles from '../styles/Settings.module.css'
 import { useRouter } from 'next/router'
 import { MdChevronRight } from 'react-icons/md'
+import Navbar from '../components/Navbar'
 
 export default function Login() {
   
@@ -34,6 +35,7 @@ export default function Login() {
               <div onClick={handleLogout}><span> Logout</span>  <span><MdChevronRight/></span></div>
           </section>
       </main>
+      <Navbar />
     </div>
   )
 }

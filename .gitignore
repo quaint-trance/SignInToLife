@@ -12,3 +12,6 @@ npm-debug.*
 web-build/
 web-report/
 next.config.js
+server/build
+webapp/build
+webapp/out

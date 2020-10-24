@@ -18,7 +18,7 @@ const useChart = (token: string, wait: boolean) =>{
         ),{
             enabled: !wait,
             initialData: {
-                score: 0,
+                streak: 0,
                 point: 0
             },
             initialStale: true,

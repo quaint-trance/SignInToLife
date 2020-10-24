@@ -5,7 +5,6 @@ import Link from 'next/link'
 import useLoginAccess from '../hooks/useLoginAccess'
 import Chart from '../components/Chart'
 import { useContext } from 'react'
-import useLogin from '../hooks/useLogin'
 import { UserContext } from '../components/UserContext'
 import useGetStreak from '../hooks/useGetStreak'
 

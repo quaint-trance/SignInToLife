@@ -1,5 +1,5 @@
+import styles from '../styles/Ranking.module.css'
 import Head from 'next/head'
-import styles from '../styles/ranking.module.css'
 import Navbar from '../components/Navbar'
 import Link from 'next/link'
 import useLoginAccess from '../hooks/useLoginAccess'
@@ -38,7 +38,8 @@ export default function Ranking() {
       <div className={styles.diamondIcons}>
 
         {leaguesNames.map((name, index)=>
-            <div 
+            <div
+            key={index}
             style={{color: leaguesColors[index]}}
             className={index===data?.level ? styles.active : styles.normal}
             >

@@ -1,8 +1,8 @@
+import styles from '../../styles/AddEvent.module.css'
 import Head from 'next/head'
 import useAddEvent from '../../hooks/useAddEvent'
 import { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../../components/UserContext'
-import styles from '../../styles/AddEvent.module.css'
 import { useRouter } from 'next/router'
 import useLoginAccess from '../../hooks/useLoginAccess'
 import { ArrowBack, Check, Close } from '@material-ui/icons'
@@ -13,7 +13,8 @@ const mapStyles = {
   width: "100%"
 };
 
-export default function Login() {
+
+function AddEvent() {
   
     const { token } = useContext( UserContext );
     const { add, isLoading, isError, isSuccess } = useAddEvent(token);
@@ -118,3 +119,5 @@ export default function Login() {
     </div>
   )
 }
+
+export default AddEvent;

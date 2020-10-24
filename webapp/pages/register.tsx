@@ -87,6 +87,24 @@ const LoginButton = styled.button`
       }
 `
 
+const InfoButton = styled(LoginButton)`
+    color: #ffffff;
+    background: linear-gradient(60deg, rgba(101,208,92,1) 17%, rgba(51,194,101,1) 60%, rgba(65,215,160,1) 95%);
+    background-size: 400% 400%;
+    margin: 60px 0 20px 0;
+    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.185);
+`
+
+const InfoTitle = styled.h1`
+  font-size: 2rem;
+  font-weight: 500;
+
+`
+const InfoSpan = styled.span`
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+`
+
 
 
 export default function Register() {
@@ -97,6 +115,15 @@ export default function Register() {
     const handleFormSubmit = (event) =>{
         event.preventDefault();
         singin(event.target.email.value, event.target.pass.value, event.target.name.value);
+    }
+    const closeInfobox = () =>{
+      // @ts-ignore
+      document.querySelector('#name').value = '';
+      // @ts-ignore
+      document.querySelector('#pass').value = '';
+      // @ts-ignore
+      document.querySelector('#email').value = '';
+      setDisplayInfo(false);
     }
 
     useEffect(() => {
@@ -157,12 +184,17 @@ export default function Register() {
       {transition.map(({ item, key, props }) =>
         item && 
         <animated.div style={props}>
-          <InfoBox 
-            title={"Potwierdź email"} 
-            text={"Rejestracja przebiegła pomyślnie. Aby aktywować konto kliknij w link aktywacyjny wysłany w wiadomości na twoją skrzynkę. Koniecznie może być sprawdzenie folderu 'spam' "}
-            button={"OK"}
-            onClick={()=>setDisplayInfo(false)}  
-          />
+          <InfoBox>
+            <InfoTitle>Welcome!!</InfoTitle>
+            <InfoSpan>
+              The registration was successful.
+              To activate your account click on the activation link sent to your mailbox.
+              It may be necessary to check the spam folder.
+            </InfoSpan>
+            <InfoButton onClick={closeInfobox}>
+              OK
+            </InfoButton>
+          </InfoBox>
         </animated.div>
       )}
     </Main>

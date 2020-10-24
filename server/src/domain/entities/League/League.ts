@@ -2,11 +2,22 @@ interface databaseT{
     league: {
         find: (filter: { id?: string, level?: number }) => any,
         findMultiple: (filter: { id?: string }) => any[],
-        save: ({}:{ level: number, participators: any[] }) => any,   
+        save: ({}:{ level: number, participators: any[], ends: string, ended: boolean }) => any,   
         update: (filter: { id: string }, prop: string, value: any) => any,
         pushP: (id: string, value: any) => any;
     }
 };
+
+const getDateOfNextSunday = () =>{
+    const n = new Date();
+    const daysToSunday = 7 - n.getDay();
+    const sunday = new Date(n);
+    sunday.setHours(23);
+    sunday.setMinutes(59);
+    sunday.setSeconds(59);
+    sunday.setDate(n.getDate() + daysToSunday);
+    return sunday;
+}
 
 const LeagueFactory = (databaseI: databaseT) =>{
     
@@ -14,12 +25,16 @@ const LeagueFactory = (databaseI: databaseT) =>{
         id: string;
         participators: {id: string, score: number }[];
         level: number;
+        ends: string;
+        ended: boolean;
 
 
-        constructor(data: { id: string, participators: any[], level: number }){
+        constructor(data: { ended: boolean, id: string, participators: any[], level: number, ends: string }){
             this.id = data.id;
             this.participators =  data.participators ? data.participators : [] ;
             this.level = data.level;
+            this.ends = data.ends;
+            this.ended = data.ended;
         }
         
         static async find(filter:{ id?:string, level?:number }){
@@ -31,7 +46,9 @@ const LeagueFactory = (databaseI: databaseT) =>{
         static async create(level: number){
             const result = await databaseI.league.save({
                 participators: [],
-                level
+                level,
+                ends: getDateOfNextSunday().toString(),
+                ended: false
             });
             if( !result ) return false;
             return new League(result);
@@ -63,6 +80,18 @@ const LeagueFactory = (databaseI: databaseT) =>{
             par.score += delta;
             console.log(delta);
             return await this.update('participators', this.participators)
+        }
+
+        async verifyEnds(){
+            const n = new Date();
+            console.log('ver');
+            if( n.getTime() > (new Date(this.ends)).getTime() ){
+                this.ended = true;
+                await this.update('ended', this.ended);
+                return true;
+            }
+            console.log('jest git', n,  new Date(this.ends) );
+            return false;
         }
 
         getLeaderboard(){

@@ -13,11 +13,11 @@ router.get('/getLeaderboard', verifyUser , async (req:reqType, res: any)=>{
     else res.status(200).send(result);
 });
 
-router.get('/addUserToLeaderBoard', verifyUser , async (req:reqType, res: any)=>{
+/*router.get('/addUsertoLeague', verifyUser , async (req:reqType, res: any)=>{
     const result = await mainF.leagueService.addUserToLeague(req.user);
     if( !result ) res.status(423).send();
     else res.status(200).send(result);
-});
+});*/
 
 
 router.post('/submitRaport', verifyUser , async (req:reqType, res: any)=>{

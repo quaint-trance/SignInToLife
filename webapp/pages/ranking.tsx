@@ -49,9 +49,12 @@ export default function Ranking() {
         <div className={styles.title}>
           {data.level >= 0 && `${leaguesNames[data?.level]} League`}
         </div>
+        <div className={styles.ends}>{data.level >= 0 && `ends in ${data?.ends?.getDate()-1}d ${data?.ends?.getHours()}h ${data?.ends?.getMinutes()}m`}</div>
     </header>
     <main className={styles.main}>
-      {data.level === -2 && "You are not in any league currently"}
+      {data.level === -2 && <div className={styles.noLeague}>
+        You are not in any league currently. Compelte a daily report to be assigned.
+      </div> }
       {leaderboardTransition.map(({item, props, key}, index)=>
         <animated.div className={styles.pos} style={props} key={key}>
           <div>{index+1}. {item?.name}</div><div>{item?.score}</div>

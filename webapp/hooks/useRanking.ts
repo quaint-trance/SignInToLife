@@ -32,6 +32,7 @@ const useRanking = (token: string, wait: boolean) =>{
         isLoading,
         data:{
             ...data,
+            ends: new Date( (new Date(data.ends)).getTime() - Date.now() ),
             leaderboard: data.leaderboard.map((el, index)=> {return {...el, index}})
         }
     }

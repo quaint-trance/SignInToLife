@@ -6,9 +6,14 @@ import useLoginAccess from '../hooks/useLoginAccess'
 import Chart from '../components/Chart'
 import { useContext } from 'react'
 import useLogin from '../hooks/useLogin'
+import { UserContext } from '../components/UserContext'
+import useGetStreak from '../hooks/useGetStreak'
 
 export default function Home() {
   useLoginAccess();
+  const {token, loading} = useContext(UserContext);
+  const { data } = useGetStreak(token, loading);
+
   return (
     <>
     <div className={styles.container}>
@@ -29,11 +34,11 @@ export default function Home() {
         </div>
         <div className={styles.resum}>
             <div>
-              <div>410</div>
+              <div>{data?.point}</div>
               <div>points</div>
             </div>
             <div>
-              <div>31</div>
+              <div>{data?.streak}</div>
               <div>days</div>
             </div>
         </div>

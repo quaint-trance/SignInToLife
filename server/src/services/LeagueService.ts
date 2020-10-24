@@ -19,19 +19,18 @@ export default class{
         const user = await this.entities.user.find({id});
         if( !user ) return false;
 
-        console.log(user.name);
-
         const league = await this.entities.league.find({ level: user.level });
-        if( !league ){
+        const toEnd = await league?.verifyEnds();
+        if( !league || toEnd){
             const newLeague = await this.entities.league.create(user.level);
             if( !newLeague ) return false;
             newLeague.addParticipant( id );
-            user.leagueId = newLeague.id;
+            user.setLeaugeId(newLeague.id);
             return true;
         }
         else{
             await league.addParticipant(id);
-            user.setLeaugeId(league.id);
+            await user.setLeaugeId(league.id);
             return true;
         }
     }
@@ -58,6 +57,7 @@ export default class{
         
         return {
             level: league.level,
+            ends: league.ends,
             leaderboard: fullLeaderboard
         };
     }
@@ -66,18 +66,42 @@ export default class{
         const user = await mainF.entities.user.find({id});
         if( !user ) return false;
 
-        const league = await mainF.entities.league.find({ id: user.leagueId });
-        if( !league ) return false;
-
         const score = this.calcScore(data);
-        league.changeScore(id, score);
         user.addPoints(score);
+
+        let league = await mainF.entities.league.find({ id: user.leagueId });
+        const toEnd = await league?.verifyEnds();
+        console.log('e', toEnd)
+        if( !league|| toEnd ) {
+            await this.addUserToLeague(id);
+            league = await mainF.entities.league.find({ id: user.leagueId });
+            if(!league) return false;
+        };
+        league.changeScore(id, score);
 
         return true;
     }
 
     calcScore(data: any[]){
-        return 10;
+        let sum = 0;
+        const w = [
+            [1, -1, -2],
+            [1, -1, -2],
+            [1, -1, -2],
+            [-1, 1, 2],
+            [1, -1, -2, 2, 0],
+            [2, -2]
+        ];
+
+        data.forEach((ans, index)=>{
+            if(w[index] && w[index][ans])
+                sum+= w[index][ans];
+        });
+
+        sum=Math.floor((sum+11)*1.5);
+        sum+= 10;
+
+        return sum;
     }
 
 }

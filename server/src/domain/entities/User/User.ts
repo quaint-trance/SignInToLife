@@ -105,15 +105,17 @@ const UserFactory = (databaseI: databaseT, hashI: hashT) =>{
         }
 
         async verifyStreak(){
-            const now = new Date();
+            console.log('ver streak');
+            const y = new Date(Date.now() - (1000*60*60*24));
             const yesterday = this.gainedScoreHistory.find(el=>
-                (new Date(el.date)).getFullYear() === now.getFullYear()
-                && (new Date(el.date)).getDate() === now.getDate()-1
-                && (new Date(el.date)).getMonth() === now.getMonth()
+                (new Date(el.date)).getFullYear() === y.getFullYear()
+                && (new Date(el.date)).getDate() === y.getDate()
+                && (new Date(el.date)).getMonth() === y.getMonth()
             )
+            console.log(yesterday);
             if(yesterday) this.streak++;
             else this.streak = 0;
-            await this.update('streak', 0);
+            await this.update('streak', this.streak);
         }
 
         async addPoints(points: number){
@@ -128,7 +130,7 @@ const UserFactory = (databaseI: databaseT, hashI: hashT) =>{
                 f.score+= points;
             }
             else{
-                this.verifyStreak();
+                await this.verifyStreak();
                 this.gainedScoreHistory.push({score: points, date: now});
             }
             this.update('gainedScoreHistory', this.gainedScoreHistory)

@@ -35,7 +35,10 @@ export default class{
         user.addPoints(30);
 
         const leauge = await this.entities.league.find({id: user.leagueId});
-        if(!leauge) return true;
+        const toEnd = await leauge?.verifyEnds();
+        if(!leauge || toEnd) {
+            return true;
+        };
         leauge.changeScore(userId, 30);
         return true;
     }
@@ -43,7 +46,6 @@ export default class{
     async getEventActivity(id: string){
         const event = await this.entities.event.find({id});
         if(!event) return false;
-        console.log(event);
         if(!event.activity) return [];
         const fullActivity = Promise.all(event.activity.map(async(el)=>{
             const user = await this.entities.user.find({id: el.userId});

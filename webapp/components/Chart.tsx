@@ -3,7 +3,7 @@ import { Line, defaults } from 'react-chartjs-2'
 import useChart from '../hooks/useChart';
 import { UserContext } from '../components/UserContext'
 
-export default function Chart({className}) {
+export default function Chart() {
 
   const { token, loading } = useContext( UserContext );
   const { data, isLoading } = useChart(token, loading);
@@ -13,8 +13,8 @@ export default function Chart({className}) {
         return {
           ...set,
           backgroundColor: "rgba(0, 0, 0, 0)",
-          pointBackgroundColor: "#427e3d",
-          borderColor: "#427e3d",
+          pointBackgroundColor: "#ffffff",
+          borderColor: "#ffffff",
           borderWidth: 2,
         }
       })
@@ -25,13 +25,20 @@ export default function Chart({className}) {
   }
 
   return (
-    <div className={className}>
+    <div>
       <Line
         options={{
           responsive: "true",
           legend: {
             display: false
         },
+        scales:{
+          yAxes:[{
+            gridLindes:{
+              color: "#fff"
+            }
+          }]
+        }
         }}
         data={getChartData}
         redraw

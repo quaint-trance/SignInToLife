@@ -6,6 +6,26 @@ import { useRouter } from 'next/router'
 import { MdChevronRight } from 'react-icons/md'
 import Navbar from '../components/Navbar'
 
+import styled, {keyframes} from 'styled-components'
+
+const bgAnimation = keyframes`
+  0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+`
+
+const Container = styled.main`
+  background: linear-gradient(60deg, rgba(101,208,92,1) 17%, rgba(51,194,101,1) 60%, rgba(65,215,160,1) 95%);
+  background-size: 400% 400%;
+  animation: ${bgAnimation} 8s infinite;
+`
+
 export default function Login() {
   
     const {setToken, token, loading, logout} = useContext(UserContext);
@@ -17,7 +37,7 @@ export default function Login() {
     }
 
     return (
-    <div className={styles.container}>
+    <Container className={styles.container}>
       <Head>
         <title>Settings</title>
         <link rel="icon" href="/favicon.ico" />
@@ -36,6 +56,6 @@ export default function Login() {
           </section>
       </main>
       <Navbar />
-    </div>
+    </Container>
   )
 }

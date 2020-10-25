@@ -20,7 +20,6 @@ export default function Raport() {
             <Head>
             <title>Ranking</title>
             <link rel="icon" href="/favicon.ico" />
-            <link rel="manifest" href="/manifest.json" />
             <meta lang="en"></meta>
             </Head>
             <div className={styles.header}>

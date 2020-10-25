@@ -3,7 +3,6 @@ import Link from 'next/link'
 import useLogin from '../hooks/useLogin'
 import { useContext, useEffect } from 'react'
 import { UserContext } from '../components/UserContext'
-import styles from '../styles/Login.module.css'
 import { useRouter } from 'next/router'
 import Button from '../components/Button'
 import styled, {keyframes} from 'styled-components';
@@ -87,6 +86,10 @@ const LoginButton = styled.button`
       }
 `
 
+const Logo = styled.img`
+  width: 70%;
+`
+
 export default function Login() {
   
     const { singin, isLoading, isError, isSuccess, responseToken } = useLogin();
@@ -112,14 +115,11 @@ export default function Login() {
     return (
     <Main>
       <Head>
-        <title>Sign in to Hackheroes</title>
+        <title>Sign in to Life</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header>
-        <img src="/images/logo.png" alt="logo"/>
-        <h1 className={styles.title}>
-          Sign in to Your account
-        </h1>
+        <Logo src="/logo.png" alt="logo"/>
       </Header>
       <Form onSubmit={handleFormSubmit} error={isError} autoComplete="off">
           <label htmlFor="email">Email</label>

@@ -104,8 +104,9 @@ const InfoSpan = styled.span`
     font-size: 1.2rem;
     line-height: 1.8rem;
 `
-
-
+const Logo = styled.img`
+  width: 70%;
+`
 
 export default function Register() {
   
@@ -163,10 +164,10 @@ export default function Register() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header>
-        <img src="/images/logo.png" alt="logo"/>
         <h1>
           Create an account
         </h1>
+        <Logo src="/logo.png" alt="logo"/>
       </Header>
         <Form onSubmit={handleFormSubmit} error={isError} autoComplete="off">
             <label htmlFor="name">Name</label>

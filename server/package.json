@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --verbose || true",
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "build": "npx tsc"
   },
   "author": "",
   "license": "ISC",

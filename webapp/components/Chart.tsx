@@ -8,14 +8,18 @@ export default function Chart() {
   const { token, loading } = useContext( UserContext );
   const { data, isLoading } = useChart(token, loading);
 
+  defaults.global.defaultFontColor = "#fff";
+  defaults.global.defaultScalesColor = "#fff"
+
   const getChartData = canvas => {
       let newDatasets =  data.datasets.map(set=>{
         return {
           ...set,
-          backgroundColor: "rgba(0, 0, 0, 0)",
+          backgroundColor: `rgba(255, 255, 255, 0)`,
           pointBackgroundColor: "#ffffff",
           borderColor: "#ffffff",
-          borderWidth: 2,
+          borderWidth: 3,
+          pointBorderWidth: 5,
         }
       })
       return {
@@ -31,14 +35,19 @@ export default function Chart() {
           responsive: "true",
           legend: {
             display: false
-        },
-        scales:{
-          yAxes:[{
-            gridLindes:{
-              color: "#fff"
-            }
-          }]
-        }
+          },
+          scales: {
+            yAxes: [{
+              gridLines: {
+                color: 'rgba(255, 255, 255, 0.3)'
+              }
+            }],
+            xAxes: [{
+              gridLines: {
+                color: 'rgba(255, 255, 255, 0.3)'
+              }
+            }]
+          }
         }}
         data={getChartData}
         redraw

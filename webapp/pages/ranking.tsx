@@ -119,8 +119,6 @@ export default function Ranking() {
       <Head>
         <title>Ranking</title>
         <link rel="icon" href="/favicon.ico" />
-        <link rel="manifest" href="/manifest.json" />
-        <meta lang="en"></meta>
       </Head>
       <Header>
         <div>

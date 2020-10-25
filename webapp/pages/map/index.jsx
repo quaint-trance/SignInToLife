@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import { animated, useTransition } from 'react-spring'
 import { MdAdd, MdGpsFixed } from 'react-icons/md'
 import { GoogleMap, LoadScript, Marker, OverlayView } from '@react-google-maps/api';
+import useLoginAccess from '../../hooks/useLoginAccess'
 
 const mapStyles = {        
   height: "100vh",
@@ -16,7 +17,7 @@ const mapStyles = {
 };
 
 export default function Map() {
-  
+  useLoginAccess();
   const {isLoading, events, isError} = useEvents();
   const [currentPin, setCurrentPin] = useState();
   const router = useRouter();
@@ -60,10 +61,7 @@ export default function Map() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Map</title>
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="manifest" href="/manifest.json" />
-        <meta lang="en"></meta>
+        <title>Sign in to life - map</title>
       </Head>
 
       <main className={styles.main}>

@@ -7,6 +7,7 @@ import { MdChevronRight } from 'react-icons/md'
 import Navbar from '../components/Navbar'
 
 import styled, {keyframes} from 'styled-components'
+import useLoginAccess from '../hooks/useLoginAccess'
 
 const bgAnimation = keyframes`
   0% {
@@ -27,7 +28,7 @@ const Container = styled.main`
 `
 
 export default function Login() {
-  
+    useLoginAccess();
     const {setToken, token, loading, logout} = useContext(UserContext);
     const router = useRouter();
 

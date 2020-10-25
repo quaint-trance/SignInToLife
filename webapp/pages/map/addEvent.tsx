@@ -123,6 +123,8 @@ const OkButton = styled(ChooseButton)`
   color: white;
   margin: 0;
   border: 0;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
 `
 
 const MeMarker = styled.div`
@@ -171,8 +173,7 @@ function AddEvent() {
 return choosing ? (
     <div>
     <Head>
-      <title>Add Event</title>
-      <link rel="icon" href="/favicon.ico" />
+      <title>Sign in to life - add event</title>
     </Head>
     <Header>
       <i><MdKeyboardArrowLeft onClick={()=>router.back()}></MdKeyboardArrowLeft></i>
@@ -203,7 +204,7 @@ return choosing ? (
   ):(
     <Container>
       <Head>
-        <title>Add Event</title>
+        <title>Sign in to life - add event</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header>

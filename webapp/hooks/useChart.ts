@@ -1,6 +1,7 @@
 import ENDPOINT from '../ENDPOINT';
 import { useQuery } from 'react-query'
 
+const weekdays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
 
 const useChart = (token: string, wait: boolean) =>{
     
@@ -26,9 +27,13 @@ const useChart = (token: string, wait: boolean) =>{
     return {
         isLoading,
         data:{
-            labels: ["1", "2", "3", "4", "5", "6", "7"],
+            labels: [1, 2, 3, 4, 5, 6, 7].map(el=>{
+                const d = new Date();
+                d.setDate(d.getDate() - (7-el));
+                return weekdays[d.getDay()];
+            }),
             datasets: [{
-                label: "e",
+                label: "points",
                 data: data.map ? data?.map(el=>el.score) : []
             }],
         }

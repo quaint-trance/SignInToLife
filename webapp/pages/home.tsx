@@ -35,7 +35,12 @@ const Header = styled.header`
   font-size: 1.5rem;
   display: flex;
   flex-direction: column;
-  text-align: center;
+  justify-content: center;
+  align-items: center;
+`
+
+const Logo = styled.img`
+  width: 70%;
 `
 
 const ChartBox = styled.div`
@@ -96,21 +101,21 @@ export default function Home() {
   const {token, loading} = useContext(UserContext);
   const { data } = useGetStreak(token, loading);
 
+  if(loading || !token) return <Container />
+
   return (
     <Container>
       <Head>
-        <title>Home</title>
+        <title>Sign in to life - Home</title>
         <link rel="icon" href="/favicon.ico" />
-        <link rel="manifest" href="/manifest.json" />
         <meta lang="en"></meta>
       </Head>
       <Header>
-        <img src="" alt="logo"/>
-        <span>App name</span>
+        <Logo src="/logo.png" alt="logo"/>
       </Header>
       <ChartBox>
         <div>
-          <Chart className={''}/>
+          <Chart/>
         </div>
         <div>
             <div>

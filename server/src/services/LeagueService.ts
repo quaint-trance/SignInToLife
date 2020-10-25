@@ -16,6 +16,7 @@ export default class{
     }
 
     async addUserToLeague(id: string){
+        console.log('addin')
         const user = await this.entities.user.find({id});
         if( !user ) return false;
 
@@ -72,7 +73,7 @@ export default class{
         let league = await mainF.entities.league.find({ id: user.leagueId });
         const toEnd = await league?.verifyEnds();
         console.log('e', toEnd)
-        if( !league|| toEnd ) {
+        if( !league || toEnd ) {
             await this.addUserToLeague(id);
             league = await mainF.entities.league.find({ id: user.leagueId });
             if(!league) return false;

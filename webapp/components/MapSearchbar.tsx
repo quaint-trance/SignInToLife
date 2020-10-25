@@ -5,7 +5,7 @@ import { Search } from '@material-ui/icons'
 export default function MapSearchbar({event, close}) {
   return (
     <div className={styles.searchbar}>
-        <Search /> <input placeholder="search..."></input>
+        <Search /> <input placeholder="search..." disabled={true}></input>
     </div>
   )
 }

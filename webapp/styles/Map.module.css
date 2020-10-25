@@ -38,7 +38,7 @@
   border: none;
   height: 50px;
   width: 50px;
-  background-color: var(--c-main1);
+  background-color: #161616;
   box-shadow: 6px 12px 10px 0px rgba(0, 0, 0, 0.315);
   border-radius: 50%;
 }
@@ -85,7 +85,7 @@
   border: none;
   height: 50px;
   width: 50px;
-  background-color: var(--c-main1);
+  background-color: #161616;
   box-shadow: 6px 12px 10px 0px rgba(0, 0, 0, 0.315);
   border-radius: 50%;
 }

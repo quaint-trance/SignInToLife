@@ -18,7 +18,8 @@
     font-size: 1.1rem;
     border: none;
     outline: none;
-    margin-left: 5px
+    margin-left: 5px;
+    background-color: white;;
 }
 
 .searchbar svg{

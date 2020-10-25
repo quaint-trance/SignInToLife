@@ -125,6 +125,16 @@ const OkButton = styled(ChooseButton)`
   border: 0;
 `
 
+const MeMarker = styled.div`
+  height: 20px;
+  width: 20px;
+  background-color: rgb(44, 129, 226);
+  border: 3px solid white;
+  border-radius: 10px;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.342);
+`
+
 
 function AddEvent() {
   
@@ -178,7 +188,7 @@ return choosing ? (
             >
             {centerPosition.lat && ( 
               <OverlayView mapPaneName='floatPane' position={centerPosition} >
-                <div></div>
+                <MeMarker></MeMarker>
               </OverlayView>
             )}
             <Marker

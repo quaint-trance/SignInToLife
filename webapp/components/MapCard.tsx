@@ -146,7 +146,7 @@ return (
       </section>}
 
       {navCard===2 &&<section {...bindCardsNav()}>
-        E
+        
       </section>}
 
       </main>

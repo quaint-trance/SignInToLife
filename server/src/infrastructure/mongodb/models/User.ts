@@ -33,7 +33,10 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    leagueId: String,
+    leagueId: {
+        type: String,
+        default: ''
+    },
     level: Number,
     gainedScoreHistory:[{
         score: Number,

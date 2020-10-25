@@ -69,6 +69,7 @@ const Main = styled.main`
 `
 const List = styled.div`
   padding-top: 10px;
+  padding-bottom: 100px;
 
   & > div{
     background-color: white;
@@ -143,20 +144,6 @@ export default function Ranking() {
           You are not in any league currently. Compelte a daily report to be assigned.
         </div> }
         <List>
-          {leaderboardTransition.map(({item, props, key}, index)=>
-            <animated.div key={key}> 
-                <div>{index+1}</div>
-                <div> {item?.name}</div>
-                <div>{item?.score}</div>
-            </animated.div>
-          )}
-          {leaderboardTransition.map(({item, props, key}, index)=>
-            <animated.div key={key}> 
-                <div>{index+1}</div>
-                <div> {item?.name}</div>
-                <div>{item?.score}</div>
-            </animated.div>
-          )}
           {leaderboardTransition.map(({item, props, key}, index)=>
             <animated.div key={key}> 
                 <div>{index+1}</div>

@@ -1,4 +1,3 @@
-import styles from '../../styles/AddEvent.module.css'
 import Head from 'next/head'
 import useAddEvent from '../../hooks/useAddEvent'
 import { useContext, useEffect, useState } from 'react'
@@ -7,11 +6,124 @@ import { useRouter } from 'next/router'
 import useLoginAccess from '../../hooks/useLoginAccess'
 import { ArrowBack, Check, Close } from '@material-ui/icons'
 import { GoogleMap, LoadScript, Marker, OverlayView } from '@react-google-maps/api';
+import styled, { keyframes } from 'styled-components'
+import { MdKeyboardArrowLeft } from 'react-icons/md'
 
 const mapStyles = {        
   height: "90vh",
   width: "100%"
 };
+
+const bgAnimation = keyframes`
+  0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+`
+
+const Container = styled.div`
+  min-height: 100vh;
+  background: linear-gradient(60deg, rgba(101,208,92,1) 17%, rgba(51,194,101,1) 60%, rgba(65,215,160,1) 95%);
+  background-size: 400% 400%;
+  animation: ${bgAnimation} 8s infinite;
+  color: white;
+  display: grid;
+  grid-template-rows: auto 1fr auto 1fr;
+
+  & > main{
+    grid-row: 3 / 4;
+  }
+`
+
+const Header = styled.header`
+  color: white;
+  background-color: #000000;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  & > i{
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+  }
+`
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+
+  & > input, & > textarea{
+    outline: 'none';
+    border-radius: 10px;
+    border: 2px solid ${({error}: {error: boolean}) => error ? `red` : `white`};
+    margin: 0 0 30px 0;
+    font-size: 1.2rem;
+    padding: 10px;
+  }
+  & > textarea{
+    height: 10rem
+  }
+
+  & > label{
+      color: ${({error}: {error: boolean}) => error ? `red` : `white`}
+    }
+`
+
+const CreateButton = styled.button`
+    outline: none;
+    position: relative;
+    background-color: white;  
+    border: none;
+    color: rgba(0, 0, 0, 0.952);
+    border-radius: 15px;
+    font-size: 1.3rem;
+    font-weight: 500;
+    width: 100%;
+    line-height: 10vw;
+    padding: 10px 10px;
+    margin-bottom: 10px;
+
+    &:touch-action{
+      transform: scale(.95)
+    }
+
+    & > span {
+        background: linear-gradient(60deg, rgba(101,208,92,1) 17%, rgba(51,194,101,1) 60%, rgba(65,215,160,1) 95%);
+        -webkit-text-fill-color: transparent; 
+        -webkit-background-clip: text;
+        background-clip: text;
+        font-weight: 900;
+      }
+`
+
+const ChooseButton = styled(CreateButton)`
+  color: white;
+  border: 5px solid white;
+  background-color: transparent;
+  & > span {
+        background: initial;
+        -webkit-text-fill-color: initial; 
+        -webkit-background-clip: initial;
+        background-clip: initial;
+        font-weight: 600;
+      }
+`
+
+const OkButton = styled(ChooseButton)`
+  position: fixed;
+  bottom: 0;
+  background: linear-gradient(60deg, rgba(101,208,92,1) 17%, rgba(51,194,101,1) 60%, rgba(65,215,160,1) 95%);
+  color: white;
+  margin: 0;
+  border: 0;
+`
 
 
 function AddEvent() {
@@ -46,16 +158,16 @@ function AddEvent() {
       );
     }, [])
 
-  if(choosing) return(
-    <div className={styles.container}>
+return choosing ? (
+    <div>
     <Head>
       <title>Add Event</title>
       <link rel="icon" href="/favicon.ico" />
     </Head>
-    <header className={styles.header}>
-      <ArrowBack onClick={()=>router.back()}></ArrowBack>
-        <img src="/images/logo.png" alt="logo"/>
-    </header>
+    <Header>
+      <i><MdKeyboardArrowLeft onClick={()=>router.back()}></MdKeyboardArrowLeft></i>
+      <span>Create new event</span>
+    </Header>
 
     <LoadScript preventGoogleFontsLoading
             googleMapsApiKey={process.env.GMapsKey}>
@@ -66,7 +178,7 @@ function AddEvent() {
             >
             {centerPosition.lat && ( 
               <OverlayView mapPaneName='floatPane' position={centerPosition} >
-                <div className={styles.me}></div>
+                <div></div>
               </OverlayView>
             )}
             <Marker
@@ -76,26 +188,21 @@ function AddEvent() {
             />
           </GoogleMap>
           </LoadScript>
-          <button className={styles.chooseF} onClick={()=>setChoosing(false)}>OK</button>
+          <OkButton onClick={()=>setChoosing(false)}>OK</OkButton>
   </div>
-  )
-
-    return (
-    <div className={styles.container}>
+  ):(
+    <Container>
       <Head>
         <title>Add Event</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <header className={styles.header}>
-        <ArrowBack onClick={()=>router.back()}></ArrowBack>
-          <img src="/images/logo.png" alt="logo"/>
-      </header>
+      <Header>
+        <i><MdKeyboardArrowLeft onClick={()=>router.back()}></MdKeyboardArrowLeft></i>
+        <span>Create new event</span>
+      </Header>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Create new event
-        </h1>
-        <form className={styles.form} onSubmit={handleFormSubmit} >
+      <main>
+        <Form onSubmit={handleFormSubmit} error={false}>
             
             <label htmlFor="name">Name</label>
             <input type="text" name="name" id="name" />
@@ -103,20 +210,18 @@ function AddEvent() {
             <label htmlFor="description">Description</label>
             <textarea name="description" id="description"/>
             
-            <button className={styles.choose} onClick={()=>setChoosing(true)}>choose point on map</button>
+            <ChooseButton onClick={()=>setChoosing(true)}> <span>choose point on map </span></ChooseButton>
 
-            <button className={styles.button}>create event</button>
+            <CreateButton> <span>create event</span></CreateButton>
 
             <div> 
-              {isSuccess && <div className={styles.done}><Check/></div>}
-              {isError && <div className={styles.error}><Close/></div>}
-              {isLoading && <div className={styles.loading}></div>}
-               
-              
+              {isSuccess && <div><Check/></div>}
+              {isError && <div><Close/></div>}
+              {isLoading && <div></div>}
             </div>
-        </form>
+        </Form>
       </main>
-    </div>
+    </Container>
   )
 }
 
